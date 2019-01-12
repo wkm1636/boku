@@ -18,6 +18,14 @@ urlpatterns = [
 
     url(r'^showcart/$',views.showcart,name='showcart'),
 
+    # 修改購物車商品的狀態
+    url(r'^changecartstatus/$',views.changecartstatus,name='changecartstatus'),
+
+    # 修改所有商品的狀態
+    url(r'^changeallcartstatus/$',views.changeallcartstatus,name='changeallcartstatus'),
+
+
+
 
 
 ]

@@ -42,6 +42,7 @@ class Cart(models.Model):
     book = models.ForeignKey(Book)
     number = models.IntegerField()
     isselect = models.BooleanField(default=True)
+    price = models.IntegerField(default=1)
 
     class Meta:
         db_table = "Cart"

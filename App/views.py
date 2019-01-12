@@ -129,7 +129,6 @@ def addcart(request):
     bookid = request.GET.get('bookid')
     number = int(request.GET.get('number'))
 
-    print(bookid,number)
 
     data = {}
 
@@ -142,12 +141,14 @@ def addcart(request):
         if carts.exists():
             cart = carts.first()
             cart.number = cart.number + number
+            cart.price = cart.number * float(cart.book.newprice)
             cart.save()
         else:
             cart = Cart()
             cart.user = user
             cart.book = book
             cart.number = number
+            cart.price = cart.number * float(cart.book.newprice)
             cart.save()
 
 
@@ -179,11 +180,53 @@ def showcart(request):
 
             print(sum)
             data['carts'] = carts
-            data['totalprice'] = sum
-
-
+            data['totalprice'] = int(sum)
+            data['totalprice1'] = int(sum) + 5
 
             return render(request,'cart.html',context=data)
+        else:
+            return redirect('boku:index')
     return redirect('boku:login')
 
+# 購物車單個選中狀態改變
+def changecartstatus(request):
+    cartid = request.GET.get('cartid')
 
+
+    cart = Cart.objects.get(pk=cartid)
+    cart.isselect = not cart.isselect
+    cart.save()
+
+
+    data={
+        'msg':"修改狀態成功",
+        'isselect':cart.isselect
+    }
+    return JsonResponse(data)
+
+
+def changeallcartstatus(request):
+    token = request.session.get('token')
+    user = User.objects.get(token=token)
+    carts = Cart.objects.filter(user=user)
+
+    isall = request.GET.get('isall')
+    if isall == 'true':
+        isall = True
+    else:
+        isall = False
+
+
+    print(isall)
+
+    for cart in carts:
+        cart.isselect = isall
+        cart.save()
+        print(cart.isselect)
+
+        data={
+            "msg":'修改成功',
+            "status":1,
+            "isselect":cart.isselect
+        }
+    return JsonResponse(data)

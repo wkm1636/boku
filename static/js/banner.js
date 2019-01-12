@@ -31,7 +31,7 @@ function banner(){
 	var timer = setInterval(function(){
 		index++;
 		move();
-	},10000)
+	},3000)
 	
 	//运动
     function move(){

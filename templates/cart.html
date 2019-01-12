@@ -449,237 +449,49 @@
     <script src="{% static '/js/jquery.cookie.js' %}"></script>
     <script>
         $(function () {
-            $("#footer").load("{% static '/html_1/footer.html' %}")
+            $(".cont").width(innerWidth)
+            {#加入購物車按鈕#}
+            $('.cont .ipt').click(function () {
+                var cartid = $(this).attr('cartid')
+                $.get('/boku/changecartstatus/', {'cartid': cartid}, function (response) {
+                    console.log(response)
+                })
+            })
 
-            ///////////////
-            //获取购物车的cookie数据,并用节点显示
-            refresh();
+            $('.total').click(function () {
+                var isall = $(this).attr('isall')
+                isall = isall == 'false' ? true : false
 
-            function refresh() {
-
-                var arr = $.cookie("carts");
-                if (arr) {
-                    arr = JSON.parse(arr);
-                    //先清除旧节点
-                    $(".commodity").empty();
-
-                    //再添加新节点
-                    var totalPrice = 0; //总价
-                    var val = 0 //选中件数
-
-                    //遍历数组
-                    for (var i = 0; i < arr.length; i++) {
-                        var obj = arr[i];
-
-                        //创建tr节点
-                        var tr = $('<tr ></tr>').appendTo(".commodity");
-                        var td = $('<td ></td>').appendTo(tr);
-                        var ul = $('<ul class="list_1"></ul>').appendTo(td)
-                        var li = $('<li class="ipt"></li>').appendTo(ul)
-                        //是否选中
-                        if (obj.checked) {
-                            $('<input class="ckbox" type="checkbox" checked="checked" />').appendTo(li);
-                        } else {
-                            $('<input class="ckbox" type="checkbox" />').appendTo(li);
-                        }
-
-                        $('<li class="bkImg"><a href="javaScript:;" style=" background: ' + obj.bg + '; background-size:contain; background-position:center; "></a><p>' + obj.name + '</p></li>').appendTo(ul);
-                        $('<li class="prc"><p class="prc1">' + obj.old + '</p><p class="prc2">' + obj.new + '</p></li>').appendTo(ul);
-                        $('<li class="num"><div class="num1"><span class="jian">-</span><div class="val">' + obj.num + '</div><span class="jia">+</span></div></li>').appendTo(ul);
-                        $('<li class="zPrc"><p class="prc2 mt-35">¥' + (obj.new.slice(1) - 0) * obj.num + '</p></li>').appendTo(ul);
-                        $('<li class="handle"><p class="mt-35" >移入收藏夹</p><span class="clde">删除</span></li>').appendTo(ul);
-                        $('<div class="cb"></div>').appendTo(".list_1");
-
-
-                        //计算总价
-                        if (obj.checked) {
-                            totalPrice += (obj.new.slice(1) - 0) * obj.num;
-                            val += obj.num
-                        }
+                console.log(isall)
+                $(this).attr('isall', isall)
+                {#ajax請求#}
+                $.get('/boku/changeallcartstatus', {'isall': isall}, function (response) {
+                    console.log(response)
+                    if (response.status) {
+                        $(".list_1").each(function () {
+                            if (isall){
+                                $(this).prop('checked',true)
+                            }else {
+                                $(this).prop('checked',false)
+                            }
+                        })
                     }
-                    //显示选中件数
-                    $("#val").html(val);
-                    //显示总价
-                    $(".zPrc1").html(totalPrice.toFixed(2));
-                    $(".zPrc2").html((totalPrice + 5).toFixed(2));
-                }
-            }
 
-            //+
+                })
 
-            $(".commodity").on("click", ".jia", function () {
-                var index = $(this).index(".commodity .jia");
+            {#function CheckAll(obj) {#}
+            {#                //获取checked属性#}
+            {#                if ($(obj).prop("checked")) {#}
+            {#                    //设置checked属性#}
+            {#                    $("input[name='checkboxall']").prop("checked", true);#}
+            {#                } else {#}
+            {#                    //设置checked属性#}
+            {#                    $("input[name='checkboxall']").prop("checked", false);#}
+            {#                }#}
+            {#            }#}
 
-                //获取cookie并修改
-                var arr = JSON.parse($.cookie("carts"));
-                arr[index].num++;
 
-                //覆盖原来的cookie
-                $.cookie("carts", JSON.stringify(arr), {expires: 30, path: "/"});
-
-                //刷新节点数据
-                refresh();
             })
-
-            //-
-            $(".commodity").on("click", ".jian", function () {
-                var index = $(this).index(".commodity .jian");
-
-                //获取cookie并修改
-                var arr = JSON.parse($.cookie("carts"));
-                arr[index].num--;
-                if (arr[index].num < 1) {
-                    arr[index].num = 1;
-                }
-
-                //覆盖原来的cookie
-                $.cookie("carts", JSON.stringify(arr), {expires: 30, path: "/"});
-
-                //刷新节点数据
-                refresh();
-            })
-
-            //删除
-            $(".commodity").on("click", ".clde", function () {
-                var index = $(this).index(".commodity .clde");
-
-                //获取cookie并修改
-                var arr = JSON.parse($.cookie("carts"));
-                arr.splice(index, 1); //删除数组arr的第index个
-
-                //覆盖原来的cookie
-                $.cookie("carts", JSON.stringify(arr), {expires: 30, path: "/"});
-
-                isAllSelect();
-
-                //刷新节点数据
-                refresh();
-            })
-
-            //勾选
-            $(".commodity").on("click", ".ckbox", function () {
-                var index = $(this).index(".commodity .ckbox");
-
-                //获取cookie并修改
-                var arr = JSON.parse($.cookie("carts"));
-                arr[index].checked = !arr[index].checked;
-
-                //覆盖原来的cookie
-                $.cookie("carts", JSON.stringify(arr), {expires: 30, path: "/"});
-
-                //判断是否全选了
-                isAllSelect();
-
-                //刷新节点数据
-                refresh();
-            })
-
-            //判断是否全部勾选了
-            isAllSelect();
-
-            function isAllSelect() {
-
-                //判断是否为undefined
-                var arr = $.cookie("carts");
-                if (!arr) {
-                    return;
-                }
-
-                var arr = JSON.parse($.cookie("carts"));
-
-                var sum = 0;
-                for (var i = 0; i < arr.length; i++) {
-                    sum += arr[i].checked;
-                }
-
-                //全选了
-                if (arr.length != 0 && sum == arr.length) {
-                    $(".ero1").prop("checked", true);
-                    $(".ero2").prop("checked", true);
-                }
-                //未全选
-                else {
-                    $(".ero1").prop("checked", false);
-                    $(".ero2").prop("checked", false);
-                }
-            }
-
-            //全选
-
-            $(".ero1").click(function () {
-                //判断是否为undefined
-                var arr = $.cookie("carts");
-                if (!arr) {
-                    return;
-                }
-
-                var arr = JSON.parse($.cookie("carts"));
-                for (var i = 0; i < arr.length; i++) {
-                    //全选
-                    if ($(this).prop("checked")) {
-                        arr[i].checked = true;
-                        $(".ero2").prop("checked", true);
-                    }
-                    //全不选
-                    else {
-                        arr[i].checked = false;
-                        $(".ero2").prop("checked", false);
-                    }
-                }
-                $.cookie("carts", JSON.stringify(arr), {expires: 30, path: "/"});
-
-                //刷新
-                refresh();
-            })
-            $(".ero2").click(function () {
-                //判断是否为undefined
-                var arr = $.cookie("carts");
-                if (!arr) {
-                    return;
-                }
-
-                var arr = JSON.parse($.cookie("carts"));
-                for (var i = 0; i < arr.length; i++) {
-                    //全选
-                    if ($(this).prop("checked")) {
-                        arr[i].checked = true;
-                        $(".ero1").prop("checked", true);
-                    }
-                    //全不选
-                    else {
-                        arr[i].checked = false;
-                        $(".ero1").prop("checked", false);
-                    }
-                }
-                $.cookie("carts", JSON.stringify(arr), {expires: 30, path: "/"});
-
-                //刷新
-                refresh();
-            })
-
-            //删除选中
-            $(".delSelect").click(function () {
-
-                //获取cookie并修改
-                var arr = JSON.parse($.cookie("carts"));
-
-                //将未选中的商品添加到新数组newArr中，再将newArr保存到cookie
-                var newArr = [];
-                for (var i = 0; i < arr.length; i++) {
-                    if (!arr[i].checked) {
-                        newArr.push(arr[i]);
-                    }
-                }
-
-                //覆盖原来的cookie
-                $.cookie("carts", JSON.stringify(newArr), {expires: 30, path: "/"});
-
-                isAllSelect();
-
-                //刷新节点数据
-                refresh();
-            })
-
         })
     </script>
 </head>
@@ -725,31 +537,15 @@
             </p>
             <table width="100%" height="50" class="tab_1" cellspacing="0">
                 <tr>
-                    <td width="40">
-                        <input type="checkbox" checked="checked" class="ero1"/>
-                    </td>
-                    <td width="40" align="center">全选</td>
+
+                    <td width="40" align="center"></td>
                     <td width="450">商品信息</td>
                     <td width="160" align="center">单价</td>
                     <td width="120" align="center">数量</td>
-                    <td width="200" align="center">金额(元)</td>
+                    <td width="200" align="center">小計(元)</td>
                     <td>操作</td>
                 </tr>
             </table>
-            <hr>
-            <ul>
-                {% for cart in carts %}
-                    <li>書籍名:{{ cart.book.title }}</li>
-                    <li>單價:{{ cart.book.newprice }}</li>
-                    <li>數量:{{ cart.number }}</li>
-                    <li>總價:</li>
-                    <hr>
-                {% endfor %}
-
-            </ul>
-            <ul>
-                <li>總價:{{ totalprice }}</li>
-            </ul>
 
             <div class="lw50">
 
@@ -757,40 +553,51 @@
             </div>
             <div class="tus">图书仓</div>
             <table width="1200" class="commodity" border="1" cellspacing="0" bordercolor="#e8e8e8">
-                <!--<tr>
+                <tr>
                     <td>
                         <ul class="list_1">
-                            <li class="ipt"><input type="checkbox" checked="checked"/></li>
-                            <li class="bkImg">
-                                <a href="javaScript:;"></a>
-                                <p>芳华</p>
-                            </li>
-                            <li class="prc">
-                                <p class="prc1">¥48.88</p>
-                                <p class="prc2">¥32.00</p>
-                            </li>
-                            <li class="num">
-                                <div class="num1">
-                                    <span class="jian">-</span>
-                                    <div class="val">1</div>
-                                    <span class="jia">+</span>
-                                </div>
-                            </li>
-                            <li class="zPrc">
-                                <p class="prc2 mt-35">¥32.00</p>
-                            </li>
-                            <li class="handle">
-                                <p class="mt-35" >移入收藏夹</p>
-                                <span>删除</span>
-                            </li>
-                            <div class="cb"></div>
+                            {% for cart in carts %}
+                                {% if cart.isselect %}
+                                    <li class="ipt" cartid="{{ cart.id }}"><input type="checkbox"  name='checkboxall' checked="checked"/>
+                                    </li>
+                                {% else %}
+                                    <li class="ipt" cartid="{{ cart.id }}"><input type="checkbox" name='checkboxall' /></li>
+                                {% endif %}
+                                <li class="bkImg">
+                                    <a href="#"><img style="height: 100px ;width: 150px" src="{{ cart.book.img }}"
+                                                     alt=""></a>
+                                    <p>{{ cart.book.title }}</p>
+                                </li>
+                                <li class="prc">
+                                    <p class="prc1">{{ cart.book.oldprice }}</p>
+                                    <p class="prc2">{{ cart.book.newprice }}</p>
+                                </li>
+                                <li class="num">
+                                    <div class="num1">
+                                        <span class="jian">-</span>
+                                        <div class="val">{{ cart.number }}</div>
+                                        <span class="jia">+</span>
+                                    </div>
+                                </li>
+                                <li class="zPrc">
+                                    <p class="prc2 mt-35">¥{{ cart.price }}</p>
+                                </li>
+                                <li class="handle">
+                                    <p class="mt-35">移入收藏夹</p>
+                                    <span>删除</span>
+                                </li>
+                                <div class="cb"></div>
+
+                            {% endfor %}
+
+
                         </ul>
                     </td>
-                </tr>-->
+                </tr>
             </table>
             <ul class="jiesuan">
                 <li class="li1 flt-le">
-                    <input type="checkbox" checked="checked" class="ero2"/>
+                    <input type="checkbox" class="total" isall="false"/>
                 </li>
                 <li class="li2 flt-le">
                     全选
@@ -802,8 +609,8 @@
                     删除选中商品
                 </li>
                 <li class="li5 flt-le">
-                    <p>应付金额(不含运费): ¥<span class="zPrc1"></span></p>
-                    <p>商品合计 ¥<span class="zPrc2"></span> 邮费：¥5.00</p>
+                    <p>应付金额(不含运费) ¥:<span class="zPrc2">{{ totalprice }}</span></p>
+                    <p>商品合计 ¥:<span class="zPrc1">{{ totalprice1 }}</span>(含运费)</p>
 
                 </li>
                 <li class="li6 flt-le">
