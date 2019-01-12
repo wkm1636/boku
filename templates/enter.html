@@ -1,0 +1,228 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>博库网-登录</title>
+		<link rel="stylesheet" type="text/css" href="{% static '/css/share.css' %}"/>
+		<link rel="stylesheet" type="text/css" href="{% static '/css/download/iconfont.css' %}"/>
+		<style type="text/css">
+			.cle {clear: both;}
+			.flt-le {float: left;}
+			.hr-warp {width: 100%; height: 45px;padding: 35px 0 34px; border-bottom: 1px solid #ccc;}
+			.hr-auto {width: 1200px; height: 45px; margin: 0 auto;}
+			.cent {height: 600px; width: 100%; background: url({% static '/images/images1/bannner.jpg' %}) no-repeat center;}
+			.cent-auto {width: 1200px; height:600px ; margin: 0 auto;}
+			.content {width: 380px; height: 412px; padding: 19px; border: 1px solid #e8e8e8; 
+					float: right;margin-top:75px; right: -75px;background: #fff;}
+			.list {width: 380px; height: 412px;}
+			.mt-20 {margin-top: 20px;}
+			.lhr {width: 380px; height: 32px; line-height: 32px; color: #2db4ea; border-bottom: 1px solid #e8e8e8;}
+			.wg1 {width: 378px; height: 38px; border: 1px solid #e8e8e8;}
+			.icon {width: 57px; height: 38px; text-align: center; line-height: 38px; font-weight: bold;}
+			.icon i {font-size: 20px;}
+			.txt {width: 309px; height: 30px; padding: 4px 6px;position: relative; }
+			.name , .passw{width: 309px; height: 30px; border: none; outline: none;}
+			.error {position: absolute; right: 14px; top: 10px;}
+			.wg2 {width: 378px; height: 40px;}
+			.word {width: 56px; height: 38px; font-size: 14px; line-height: 38px; text-align: center;}
+			.code {width: 150px; height: 30px; padding: 4px 6px; border: 1px solid #e8e8e8; 
+					border-radius: 5px;margin-right: 10px; }
+			.recode {width: 150px; height: 30px; outline: none; border: none;}
+			.cimg {width: 120px; height: 40px;}
+			.wg3 {width: 380px; height: 28px; margin-top: 10px;}
+			.wg3 a {display: block; width: 56px; height: 28px; line-height: 28px; 
+					font-size: 14px; color: #2db4ea; float: right;}
+			h3 {font-size: 14px; float: left; color: #e4393c;width:200px; height: 28px; line-height: 28px;}
+			.enter {width: 380px; height: 64px;}
+			.enter_1 {width: 380px; height: 40px; line-height: 40px; color: #fff; 
+					text-align: center; border-radius: 5px; background: #2db4ea; cursor: pointer;}
+			.enter_1:hover {background: #169cd5;}
+			.enter p {font-size: 12px ; height: 24px; line-height: 24px; color: #e4393c;}
+			.nect {width: 380px; height: 28px; margin-top: 20px; line-height: 28px;}
+			.qq,.zfb {width: 125px; height: 28px; margin-right: 50px;line-height: 28px; font-size: 14px; cursor: pointer;}
+			.qq img,.zfb img {position: relative; top: 4px; left: 5px; margin-right: 10px;}
+			.fot {width: 380px; height: 38px; margin-top:10px ;}
+			.fot a {display: block; width: 352px; height: 36px; border: 1px solid #999; border-right: 0;
+			       line-height: 36px; text-align: center; color: #2db4ea; font-size: 14px;}
+			.fot img {position: relative;left: 352px; top: -39px;}
+		</style>
+		<script src="{% static '/js/jquery-1.12.3.js' %}"></script>
+		<script src="{% static '/js/gVerify.js' %}"></script>
+		<script> //$("h3 span").html("")
+			$(function(){
+				$("#footer").load("../html_1/footer.html");
+				var verifyCode = new GVerify("v_container");
+			
+				var fl1 = false;
+				var fl2 = false;
+				var fl3 = false;
+				// 用户名验证
+				var pat1 = /^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(17[0-9])|(18[05-9]))\d{8}$/;
+				$(".name").keyup(function(){
+					$(".err1").html("&#xe633;")
+					$(".err1").css("color","#666")
+				})
+				$(".name").blur(function(){
+					var str = $(".name").val();
+					$(".err1").html("")
+					if(pat1.test(str) == false){
+						fl1 = false;
+					}
+					else {
+						fl1 = true;
+					}  
+				})
+				
+				//密码验证
+				var pat2 = /^[a-zA-Z0-9]{7,}$/;
+				$(".passw").keyup(function(){
+					$(".err2").html("&#xe633;")
+					$(".err2").css("color","#666")
+				})
+				$(".passw").blur(function(){
+					var str = $(".passw").val();
+					$(".err2").html("")
+					if(pat2.test(str) == false){
+						fl2 = false;
+					}
+					else {
+						fl2 = true;
+					}  
+				})
+				
+				// 验证码验证
+				$(".recode").blur(function(){
+					var str = $(".recode").val();
+					var res = verifyCode.validate(str);
+					if (res){
+						fl3 = true;
+					}
+					else {fl3 = false;}
+				})
+				
+				// 登录
+				$(".enter_1").click(function(){
+					if ($(".name").val().length == 0){
+						$("h3 span").html("请输入手机号")
+					}
+					else if ($(".passw").val().length == 0){
+						$("h3 span").html("请输入登录密码")
+					}
+					else if (fl3 == false){$("h3 span").html("验证码输入错误")}
+					else if (fl1 == false){$("h3 span").html("手机号不存在")}
+					else {
+						//ajax
+						var xhr = new XMLHttpRequest();
+						xhr.open("post", "http://localhost/BooKuu/html/enter.php", true);
+						xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+						var str = "phone=" + $(".name").val()+ "&password="+$(".passw").val();
+						xhr.send(str);
+						xhr.onreadystatechange = function () {
+							if (xhr.readyState==4 && xhr.status==200) {
+								var obj = JSON.parse(xhr.responseText);
+								console.log(obj)
+								if (obj.status == 1){
+									location.href = "index.html";
+								}
+								else {$("h3 span").html("用户名或密码错误")}
+							}
+						}
+
+					}
+				})
+				
+				$(".fot a").click(function(){
+					location.href = "register.html";
+				})
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			})
+		</script>
+	</head>
+	<body>
+		<div class="hr-warp">
+			<div class="hr-auto">
+				<a href="javaScript:;"><img src="{% static '/images/bneer/logo.png' %}" width="261" height="45"/></a>
+			</div>
+		</div>
+		<div class="cent">
+			<div class="cent-auto">
+				<form class="content" action="{% url 'boku:login' %}" method="post">
+                    {% csrf_token %}
+					<ul class="list">
+						<li class="lhr">博库用户登录</li>
+						<li class="mt-20 wg1">
+							<div class="icon flt-le">
+								<i class="iconfont">&#xe744;</i>
+							</div>
+							<div class="txt flt-le">
+								<input type="text" class="name" name="phone" />
+								<i class="iconfont error err1"></i>
+							</div>
+							<div class="cle"></div>
+						</li>
+						<li class="mt-20 wg1">
+							<div class="icon flt-le">
+								<i class="iconfont">&#xe629;</i>
+							</div>
+							<div class="txt flt-le">
+								<input type="password" class="passw" name="password"/>
+								<i class="iconfont error err2"></i>
+							</div>
+							<div class="cle"></div>
+						</li>
+						<li class="mt-20 wg2">
+							<div class="word flt-le">验证码：</div>
+							<div class="code flt-le">
+								<input type="text" class="recode" />
+							</div>
+							<div class="cimg flt-le">
+								<div id="v_container" style="width: 120px;height: 40px;"></div>
+							</div>
+							<div class="cle"></div>
+						</li>
+						<li class="wg3">
+							<h3><i class="iconfont"></i><span></span></h3>
+							<a href="javaScript:;">找回密码</a>
+							<div class="cle"></div>
+						</li>
+						<li class="enter">
+{#							<div class="enter_1">登录</div>#}
+                            <input type="submit" value="登录" class="enter_1"/>
+{#							<p>因博库帐号升级，若您无法正常登录，请尝试找回密码。</p>#}
+						</li>
+						<li class="nect">
+							<div class="qq flt-le">
+								<img src="{% static '/images/images1/qq.jpg' %}" />
+								QQ登录
+							</div>
+							<div class="zfb flt-le">
+								<img src="{% static '/images/images1/zfb.jpg' %}" />
+								支付宝登录
+							</div>
+							<div class="cle"></div>
+						</li>
+						<li class="fot">
+							<a href="javaScript:;">马上注册新用户</a>
+							<img src="{% static '/images/images1/001.jpg' %}" />
+						</li>
+							<div class="cle"></div>
+					</ul>
+				</form>
+			</div>
+		</div>
+		<div id="footer"></div>
+	</body>
+</html>

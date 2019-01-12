@@ -1,0 +1,413 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>博库网-免费注册</title>
+		<link rel="stylesheet" type="text/css" href="{% static '/css/share.css'%}"/>
+		<link rel="stylesheet" type="text/css" href="{% static '/css/download/iconfont.css' %}"/>
+		<script src="{% static '/js/jquery-1.12.3.js' %}"></script>
+		<script src="{% static '/js/gVerify.js' %}" ></script>
+		<script>
+			$(function(){
+				$("#footer").load("../html_1/footer.html");
+				
+				
+				// 手机号验证
+				var fl1 = false;
+				var fl2 = false;
+				var fl3 = false;
+				var pat1 = /^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(17[0-9])|(18[05-9]))\d{8}$/;
+				$(".phone").keyup(function(){
+					var str = $(".phone").val();
+					if(pat1.test(str) == false){
+						$("#eroo").html("请输入正确的手机号")
+						$(".err1").html("&#xe633;")
+						$(".err1").css("color","#666")
+						fl1 = false;
+					}
+					else {
+						$("#eroo").html("")
+						$(".err1").html("&#xe606;")
+						$(".err1").css("color","#66cc00")
+						fl1 = true;
+					}  
+				})
+
+
+				// 图形验证码
+				var verifyCode = new GVerify("v_container");
+				$(".authCode").change(function(){
+					var str = $(".authCode").val();
+					var res = verifyCode.validate(str);
+					if(res){
+						$("#eroo").html("")
+						$(".err2").html("&#xe606;")
+						$(".err2").css("color","#66cc00")
+						fl2 = true;
+					}
+					else {
+						$("#eroo").html("验证码错误")
+						$(".err2").html("&#xe633;")
+						$(".err2").css("color","#666")
+						fl2 = false;
+					}  
+				})
+				
+				//验证密码
+				var pat2 = /^[a-zA-Z0-9]{7,}$/;
+				$(".passw").keyup(function(){
+					var str = $(".passw").val();
+					if(pat2.test(str) == false){
+						$("#eroo").html("请输入正确的密码")
+						$(".err1").html("&#xe633;")
+						$(".err1").css("color","#666")
+						fl3 = false;
+					}
+					else if(str.search(/[a-zA-Z]/) != -1 && str.search(/[0-9]/) != -1){
+						$("#eroo").html("")
+						fl3 = true;
+					}
+				})
+			
+				//注册
+				$(".register").click(function(){
+					if (fl1 && fl2 && fl3){
+						var xhr = new XMLHttpRequest();
+						xhr.open("post", "http://localhost/BooKuu/html/register.php", true);
+						xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+						var str = "phone=" + $(".phone").val()+ "&password="+$(".passw").val();
+						xhr.send(str);
+						xhr.onreadystatechange = function () {
+							if (xhr.readyState==4 && xhr.status==200) {
+								$("#eroo").html($(".passw").val())
+								var obj = JSON.parse(xhr.responseText);
+								console.log(obj)
+								if (obj.status == 1){
+									location.href = "enter.html";
+								}
+								$("#eroo").html("用户已存在")
+							}
+						}
+					}
+				})
+				$("#enter").click(function(){
+					location.href = "enter.html";
+				})
+				$("#register").click(function(){
+					location.href = "register.html";
+				})
+			
+			
+			})
+			
+		</script>
+		<style type="text/css">
+			.header-hr {
+				width: 100%;
+				height: 30px;
+				background: #f5f5f5;
+			}
+			.header-hr-ctr {
+				width: 1200px;
+				height: 30px;
+				background: #f5f5f5;
+				margin: 0 auto;
+			}
+			.left-ctr {
+				float: left;
+				height: 30px;
+				line-height: 30px;
+				color: #d3ccd3;
+			}
+			.left-ctr a {
+				color: #666;
+				font-size: 12px;
+			}
+			.left-ctr a:nth-child(1) {
+				padding-right: 6px;
+			}
+			
+			.left-ctr a:nth-child(3) {
+				padding-left: 6px;
+				padding-right: 34px;
+			}
+			.left-ctr span {
+				font-size: 16px; 
+				color: #2db4ea;
+			}
+			.right-ctr {
+				width: 320px;
+				height: 30px;
+				float: right;
+			}
+			.right-ctr li {
+				padding: 0 15px;
+				line-height: 14px;
+				margin-top: 8px;
+				float: left;
+				font-size: 12px;
+				color: #666;
+				border-left: 2px solid #d3ccd3;
+			}
+			.right-ctr li:first-child{
+				margin-left: 9px;
+				margin-top: 0;
+				padding-top: 8px;
+				border: none;
+				height: 30px;
+				width: 68px;
+			}
+			.right-ctr li:last-child{
+				
+				padding-right: 0;
+			}
+			.right-ctr li i {
+				padding-left: 4px;
+				font-size: 12px;
+			}
+			.right-ctr li a:hover, .down-fol dd a:hover{
+				color: #2dc2ee;
+			}
+			.downs {
+				position: relative;
+			}
+			.downs:hover>.down-fol {display: block;}
+			.down-fol {
+				width: 72px;
+				height: 150px;
+				background: #fff;
+				position: absolute;
+				left: 12px;
+				top: 0;
+				display: none;
+			}
+			.down-fol dd a{
+				display: block;
+				font-size: 12px;
+				padding-left: 5px;
+				line-height: 25px;
+				
+			}
+			.flt-le {float: left;}
+			.cont {width: 100%; height: 798px; background: #fff;}
+			.cont-auto {width: 1200px; margin: 0 auto;}
+			.cont-log {width: 1200px; height: 110px;padding-top: 20px; border-bottom: 1px solid #e8e8e8;}
+			.cont-log a {display: block; width: 325px; height: 90px;}
+			.cont-hr {width: 1200px; height: 62px; margin-top: 25px;}
+			.p1 {width: 1200px; height: 32px; line-height: 32px; font-weight: bold; }
+			.bm {width: 1200px; height: 30px; }
+			.bm1 {width: 600px; height: 30px; background: #2db4ea; line-height: 30px; text-align: center;}
+			.bm2 {width: 600px; height: 30px; background: #e8e8e8; line-height: 30px; text-align: center;}
+			.center-cont {width: 720px; height: 595px; margin: 10px 240px 0 240px;}
+			.list_1 {width: 720px; height: 595px;}
+			.list_1 li{width: 720px; height: 35px; }
+			#eroo {width: 630px; height: 35px; padding-left: 90px; line-height: 35px; font-size: 14px; color: orangered;}
+			.mt-20 {margin-top: 20px;}
+			.list_1 .wd-370 {width: 370px; height: 110px;}
+			.list_1 li:last-child {height: 250px;}
+			.name {width: 90px; line-height: 35px; text-align: right; font-size: 14px;}
+			.box1 {width: 280px; height: 35px;}
+			.rel {position: relative;}
+			.phone,.passw {width: 266px; height: 24px; padding: 4px 6px; border: 1px solid #ccc;}
+			.error {position: absolute; right: 14px; top: 7px;}
+			.err3 {right: 40px;}
+			.box2 {width: 180px; height: 35px;}
+			.authCode {width: 166px; height: 24px; border: 1px solid #ccc; padding: 4px 6px;}
+			.box3 {width: 98px; height: 35px; font-size: 14px; line-height: 35px;}
+			.box4 {width: 170px; height: 35px;}
+			.code {width: 156px; height: 24px; padding: 4px 6px; border: 1px solid #ccc; }
+			.getCode {width: 100px; height: 34px; border: 1px solid #2db4ea; background-color: #2db4ea; margin-left: 10px;}
+			.ies {position: absolute; right: 14px; top: 10px; font-size: 16px; color: #dcdcdc;}
+			.register {width: 328px; height: 38px;line-height: 38px;border: 1px solid #2db4ea; font-size: 16px; color: #fff; 
+					background:#2db4ea ; text-align: center;margin-left: 20px; margin-top: 34px; border-radius: 5px; cursor: pointer;}
+			.box5 {width: 328px; height: 35px; line-height: 35px;text-align: right; color: #2db4ea; margin: 0 auto;font-size: 14px;}
+			.box5 a {color: #2db4ea; font-size: 14px;}
+			.box6 {width: 117px; height: 19px; margin-top:10px ; font-size: 14px;}
+			.check {width: 16px; height: 16px;}
+			.p-t {width: 720px; height: 35px; font-size: 14px; line-height: 35px;}
+			textarea {width: 720px; height: 155px; resize: none; }
+		</style>
+	</head>
+	<body>
+		<!--顶部   登录注册   导航-->
+		<div class="header-hr">
+			<div class="header-hr-ctr">
+				<p class="left-ctr">
+					<a id="enter" href="javaScript:;">登录</a><span style="font-size: 14px;">|</span>
+					<a id="register" href="javaScript:;">免费注册</a>
+					<span class="iconfont">&#xe600;</span>
+					<a href="javaScript:;">下载博库APP</a>
+				</p>
+				<ul class="right-ctr">
+					<li class="downs">
+						<a href="javaScript:;">我的博库</a><i class="iconfont">&#xe6b5;</i>
+						<dl class="down-fol">
+							<dd><a href="javaScript:;">我的博库</a></dd>
+							<dd><a href="javaScript:;">我的订单</a></dd>
+							<dd><a href="javaScript:;">我的优惠券</a></dd>
+							<dd><a href="javaScript:;">我的收藏</a></dd>
+							<dd><a href="javaScript:;">我的收入</a></dd>
+							<dd><a href="javaScript:;">官方消息</a></dd>
+						</dl>
+					</li>
+					
+					<li><a href="javaScript:;">收藏夹</a></li>
+					<li><a href="javaScript:;">店铺管理</a></li>
+					<li><a href="javaScript:;">联系客服</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="cont">
+			<div class="cont-auto">
+				<div class="cont-log">
+					<a href="javaScript:;"><img src="{% static '/images/bneer/logo.png' %}" width="261" height="45" /></a>
+				</div>	
+				<div class="cont-hr">
+					<p class="p1">用户注册</p>
+					<div class="bm">
+						<div class="bm1 flt-le">1.填写注册信息</div>
+						<div class="bm2 flt-le">2.注册成功</div>
+					</div>
+				</div>
+				<form class="center-cont" action="{% url 'boku:register' %}" method="post">
+                    {% csrf_token %}
+					<ul class="list_1">
+						<li id="hint">
+							<p id="eroo"></p>			
+						</li>
+						<li>
+							<div class="name flt-le">手机号：</div>
+							<div class="box1 flt-le rel">
+								<input type="text" class="phone" name="phone"/>
+								<i class="iconfont error err1"></i>
+							</div>
+						</li>
+						<li class="mt-20">
+							<div class="name flt-le">图形验证码：</div>
+							<div class="box1 flt-le">
+								<div class="box2 flt-le rel">
+									<input type="text" class="authCode" />
+									<i class="iconfont error err2"></i>
+								</div>
+								<div id="v_container" style="width: 90px;height: 34px; float: left; margin-left: 5px;"></div>
+							</div>
+							<div class="box3 flt-le">
+								<a href="javaScript:;">看不清,换一张</a>
+							</div>
+						</li>
+						<li class="mt-20">
+							<div class="name flt-le">用戶名：</div>
+							<div class="box1 flt-le">
+								<div class="box4 flt-le rel">
+									<input type="text" class="code" name="username" />
+									<i class="iconfont error"></i>
+								</div>
+{#								<input type="button" value="获取验证码" class="getCode flt-le"/>#}
+							</div>
+						</li>
+						<li class="mt-20">
+							<div class="name flt-le">密码：</div>
+							<div class="box1 flt-le rel">
+								<input type="password" class="passw"  name="password"/>
+								<i class="iconfont error err3"></i>
+								<i class="iconfont ies">&#xe6a7;</i>
+							</div>
+						</li>
+						<li class="wd-370">
+							<button class="register">注册</button>
+							<div class="box5">
+								已有账号&nbsp;
+								<a href="javaScript:;">前往登录</a>
+							</div>
+						</li>
+						<li>
+							<div class="box6">
+								<input type="checkbox" class="check" checked="checked"/>我已阅读并同意
+							</div>
+							<p class="p-t">
+								博库网交易条款
+							</p>
+							<textarea>
+
+
+    由博库网络有限公司在提供域名为bookuu.com（以下简称"博库网"）的网站服务时与博库网用户达成的关于使用博库网的各项规则、条款和条件。本契约在博库网用户接受注册时生效。您在成为博库网的用户前，请仔细阅读并接受本协议中所述的所有规则、条款和条件，包括因被提及而纳入的条款和条件，如对条款有任何疑问，可与博库网客服人员进行咨询。
+    一、 用户注册
+
+    1. 用户注册是指用户登陆博库网，按要求填写相关信息并确认同意履行相关用户协议的过程。用户因进行交易、获取有偿服务等而发生的所有应纳税赋由用户自行承担。
+    2. 博库网用户必须是具有完全民事行为能力的自然人，或者是具有合法经营资格的实体组织。无民事行为能力人、限制民事行为能力人以及无经营或特定经营资格的组织不当注册为博库网用户或超过其民事权利或行为能力范围从事与博库网进行交易的，其与博库网之间的服务协议自始无效，一经发现，博库网有权立即停止与该用户的交易、注销该用户，并追究其使用博库网"服务"的一切法律责任。
+    二、用户义务及隐私申明
+
+    1. 基于本站所提供的网络服务的重要性，在博库网注册及交易过程中，您应该：
+    (1)提供详尽、准确的个人资料。
+    (2)不断更新注册资料，符合及时、详尽、准确的要求。
+
+    2.本站不公开用户的姓名、地址、电话、电子邮箱及其他相关信息， 除以下情况外：
+    (1) 经用户同意，向第三方披露；
+    (2) 如用户是符合资格的知识产权投诉人并已提起投诉，应被投诉人要求，向被投诉人披露，以便双方处理可能的权利纠纷；
+    (3) 根据法律的有关规定，或者行政或司法机构的要求，向第三方或者行政、司法机构披露；
+    (4) 如果用户出现违反中国有关法律或者网站政策的情况，需要向第三方披露；
+    (5) 为提供用户所要求的产品和服务，而必须和第三方分享用户的个人信息；
+    (6) 其它博库网根据法律或者网站政策认为合适的披露。
+    三、价格和缺货
+
+    1.本站将尽最大努力保证您所购商品与网站上公布的价格一致。如果发生了意外情况，在确认了您的订单后，由于供应商提价，税额变化引起的价格变化，或是由于网站的错误等造成商品价格变化，您有权取消您的订单。
+    2.产品的价格和可获性都在本站上指明，这类信息将随时更改，博库网将不再另发通知。
+    3.您所订购的商品，如果发生缺货，您有权取消定单。
+    四、送货及费用
+
+    1. 本站将会把产品送到您所指定的送货地址。所有在本站上列出的送货时间为参考时间，参考时间的计算是根据库存状况、正常的处理过程和送货时间、送货地点的基础上估算而得出的，参考时间不代表等同于到货时间。
+    2. 送货费用根据您选择的配送方式的不同而异。
+
+    3. 请清楚准确地填写您的真实姓名、送货地址及联系方式。因包括但不限于如下情况造成订单延迟或无法配送等，本站将不承担迟延配送的责任：
+    (1)、客户提供错误信息或不详细的地址。
+    (2)、货物送达无人签收，由此造成的重复配送所产生的费用及相关的后果由收货人承担。
+    (3)、发生不可抗力，例如：自然灾害、交通戒严、突发战争等。
+    五、退款服务
+
+    退货或换货商品缺货时产生的现金款项，退回方式视支付方式的不同而不同：
+    (1)、 网上支付的订单，退款退回至原支付卡。
+    (2)、 银行转帐或邮局汇款支付的订单，退款退回至下订单账户的账户余额中。
+    (3)、 IC卡（仅限于浙江省杭州市范围内使用）支付的订单，除质量问题外概不退款。如需退款，款项退回至原支付卡。
+    六、邮件和短信通知
+
+    博库网保留通过邮件和短信的形式，对本网站注册、购物用户发送订单信息、促销活动等告知服务的权利。如果您在博库网注册、购物，表明您已默示同意接受此项服务。若您不希望接收博库网的邮件和短信，请提供您的邮箱号或手机号码联系客服进行退订处理。
+
+    七、服务条款的修改
+    本站将可能不定期的修改本用户协议的有关条款，一旦条款及服务内容产生变动，本站将会在重要页面上提示修改内容。在我们变更这些条款后，您对博库网的继续使用，都将构成您对变更的接受。
+    八、服务内容的所有权
+
+    本站定义的网络服务内容包括：文字、软件、声音、图片、录象、图表、广告中的全部内容；电子邮件的全部内容；本站为用户提供的其它信息。所有这些内容的版权、商标、标签和其它财产都是博库网络有限公司或其内容提供者的财产，受中国和国际版权法的保护。所以，用户只能在本站授权下才能使用这些内容，而不能擅自复制、再造这些内容、或创造与内容有关的派生产品。本站所有的文章版权归原文作者和本站共同所有，任何人需要转载本站的文章，必须征得原文作者和本站授权。用户不得以其他任何形式侵犯本站的知识产权。
+
+    九、评论、意见、消息和其他内容
+    本站访问者可以张贴评论、意见及其他内容，以及提出建议、主意、意见、问题或其他信息，只要内容不是非法、淫秽、威胁、诽谤、侵犯隐私、侵犯知识产权或以其他形式对第三者构成伤害或侵犯的，也不得包含软件病毒、政治宣传、商业招揽、大宗邮件或任何形式的"垃圾邮件"。您不可以使用虚假的电子邮件地址、冒充任何他人或实体或以其它方式对内容的来源进行误导。博库网保留清除或编辑这些内容的权利（但非义务），但没义务对所张贴的内容进行经常性的审查。
+    十、处罚规则
+
+    1.本站所有的促销活动和设置仅针对普通消费者，任何以赢利为目的，或订购过程中存在作弊及非正当手段获利手段行为的单位及个人均不得享受。
+    2.本站有权对用户的注册数据及购买行为进行查阅，发现注册数据或购买行为中存在任何问题或怀疑，均有权向用户发出询问及要求改正的通知或者直接作出删除等处理；用户有义务在收到询问或要求改正的通知之日起 7日内回答询问或改正。
+    3.经国家生效法律文书或行政处罚决定确认用户存在违法行为，或者博库网有事实依据可以认定用户存在违法或违反服务协议行为的，博库网有权在网站上以网络发布形式公布用户的违法行为；
+    十一、法律管辖和适用
+
+    您和博库网之间的交易条款将适用中华人民共和国的法律，所有的争端将诉诸于博库网络有限公司所在地的人民法院。
+    十二、关于解释权
+
+    本站交易条款的最终解释权保留在博库网络有限公司
+
+    全场正品
+
+    新华书店·正品保证
+
+    全场满额包邮
+
+    惊喜不断·让利多多
+
+							</textarea>
+						</li>
+					</ul>
+				</form>
+			</div>
+		</div>
+		<div id="footer"></div>
+	</body>
+</html>

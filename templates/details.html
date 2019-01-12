@@ -1,0 +1,919 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>博库-详情</title>
+    <link rel="stylesheet" type="text/css" href="{% static '/css/download/iconfont.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static '/css/share.css' %}"/>
+    <style type="text/css">
+        .cle {
+            clear: both;
+        }
+
+        .flt-le {
+            float: left;
+        }
+
+        .ell {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .cter-auto {
+            width: 1200px;
+            min-height: 800px;
+            background: #fff;
+            margin: 0 auto;
+            margin-top: 2px;
+            padding-bottom: 116px;
+        }
+
+        .cter1 {
+            width: 1200px;
+            height: 632px;
+            border-bottom: 1px solid #f5f5f5;
+        }
+
+        .cter1-h {
+            width: 1200px;
+            height: 70px;
+            line-height: 32px;
+            font-size: 14px;
+        }
+
+        .cter1-h a {
+            line-height: 40px;
+            font-size: 14px;
+        }
+
+        .cter1-f {
+            width: 1200px;
+            height: 562px;
+        }
+
+        .cter1-f-l {
+            width: 430px;
+            height: 562px;
+            float: left;
+        }
+
+        .mximg {
+            width: 428px;
+            height: 431px;
+            border: 1px solid #F5F5F5;
+            position: relative;
+        }
+
+        #magnifier {
+            width: 200px;
+            height: 200px;
+            position: absolute;
+            display: none;
+            background: #8A2BE2;
+            opacity: 0.3;
+            filter: alphy(opacity=30);
+        }
+
+        .absolu {
+            width: 400px;
+            height: 400px;
+            position: absolute;
+            overflow: hidden;
+            left: 430px;
+            display: none;
+        }
+
+        .absolu img {
+            position: absolute;
+        }
+
+        .mnimg {
+            width: 428px;
+            height: 88px;
+            border: 1px solid #F5F5F5;
+            margin-top: 20px;
+        }
+
+        .bg {
+            background: url({{ book.img }}) no-repeat;
+            background-position: center;
+            background-size: contain;
+        }
+
+        .mnimg-1 {
+            width: 76px;
+            height: 76px;
+            border: 2px solid #2db4ea;
+        }
+
+        .cter1-f-c {
+            width: 520px;
+            height: 562px;
+            float: left;
+            padding: 0 10px 0 20px;
+        }
+
+        .cter1-f-c h2 {
+            width: 520px;
+            font-size: 18px;
+            line-height: 40px;
+            font-weight: bold;
+        }
+
+        .intro {
+            width: 520px;
+            height: 50px;
+            line-height: 25px;
+            font-size: 16px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .c9 {
+            color: #999;
+        }
+
+        .wrt {
+            width: 520px;
+            height: 30px;
+            line-height: 30px;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+
+        #author {
+            margin-right: 50px;
+            color: #2db4ea;
+        }
+
+        #press {
+            color: #2db4ea;
+        }
+
+        .prc {
+            width: 470px;
+            height: 70px;
+            padding: 15px;
+            background: #e5e5e5;
+        }
+
+        .prc p {
+            width: 470px;
+            height: 35px;
+            line-height: 35px;
+            font-size: 14px;
+        }
+
+        .thoug {
+            color: #000;
+            font-size: 12px;
+            text-decoration: line-through;
+            margin-left: 30px;
+        }
+
+        .cred {
+            color: #e4395b;
+            margin-left: 30px;
+        }
+
+        #prc2 {
+            font-size: 20px;
+        }
+
+        .yun {
+            margin-top: 10px;
+        }
+
+        .yun, .sell {
+            width: 490px;
+            height: 30px;
+            font-size: 14px;
+            line-height: 30px;
+            padding: 0 15px;
+        }
+
+        .sell span, .yun span {
+            color: #000;
+            margin-left: 42px;
+        }
+
+        .num {
+            width: 490px;
+            height: 32px;
+            padding: 0 15px;
+            font-size: 14px;
+        }
+
+        .num i {
+            width: 114px;
+            height: 30px;
+            border: 1px solid #f5f5f5;
+            display: inline-block;
+            margin-left: 42px;
+            margin-right: 20px;
+        }
+
+        .jian, .jia {
+            display: inline-block;
+            width: 28px;
+            height: 30px;
+            text-align: center;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .num i input {
+            border: 1px solid #f5f5f5;
+            width: 56px;
+            height: 28px;
+            outline: none;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .behavie {
+            width: 520px;
+            height: 49px;
+            margin-top: 20px;
+        }
+
+        .dis {
+            display: block;
+        }
+
+        .buy {
+            width: 182px;
+            height: 49px;
+            background: #2ab4e8;
+            font-size: 18px;
+            text-align: center;
+            line-height: 49px;
+            color: #fff;
+        }
+
+        .cart {
+            width: 178px;
+            height: 47px;
+            border: 1px solid #2db4ea;
+            background: #d5f0fb;
+            font-size: 18px;
+            color: #2db4ea;
+            text-align: center;
+            line-height: 47px;
+            margin: 0 20px;
+        }
+
+        .collect {
+            width: 44px;
+            height: 47px;
+            border: 1px solid #aaa;
+            font-size: 16px;
+            line-height: 23px;
+            text-align: center;
+            color: #aaa;
+        }
+
+        .serve {
+            width: 520px;
+            height: 60px;
+            line-height: 60px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .serve i {
+            color: #e4393c;
+            margin-left: 35px;
+        }
+
+        .cter1-f-r {
+            width: 220px;
+            height: 562px;
+            float: left;
+        }
+
+        .bksp {
+            width: 202px;
+            height: 115px;
+            border: 1px solid #e8e8e8;
+            padding: 15px 8px;
+        }
+
+        .cter1-f-r img {
+            margin-top: 20px;
+        }
+
+        .w-202 {
+            width: 202px;
+            height: 70px;
+        }
+
+        .wh-70 {
+            width: 70px;
+            height: 70px;
+        }
+
+        .wh-70 img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: block;
+            margin-top: 0;
+        }
+
+        .w-100 {
+            width: 100px;
+            height: 70px;
+            padding-left: 10px;
+            line-height: 70px;
+        }
+
+        .bksp p {
+            width: 202px;
+            height: 30px;
+            margin-top: 16px;
+        }
+
+        .inter, .kai {
+            width: 86px;
+            height: 28px;
+            line-height: 28px;
+            text-align: center;
+            border: 1px solid #e8e8e8;
+            border-radius: 14px;
+            font-size: 14px;
+        }
+
+        .kai {
+            border: 1px solid #1697ca;
+            background: #2ab4e8;
+            color: #fff;
+            margin-left: 24px;
+        }
+
+        .cter2 {
+            width: 1200px;
+            min-height: 800px;
+        }
+
+        .cter2-l {
+            width: 218px;
+            min-height: 100px;
+            float: left;
+            border: 1px solid #e8e8e8;
+        }
+
+        .cter2-l dl dt {
+            height: 50px;
+            border-bottom: 1px solid #e8e8e8;
+            background: #f3f3f3;
+            line-height: 50px;
+            text-align: center;
+        }
+
+        .cter2-l dl dd {
+            height: 300px;
+            border-bottom: 1px solid #e8e8e8;
+        }
+
+        .cter2-l dl dd:hover > .bg1 {
+            transform: scale(1.1, 1.1);
+            transform-origin: center;
+            transition: all 0.4s ease-out;
+        }
+
+        .bg1 {
+            display: block;
+            width: 198px;
+            height: 198px;
+            margin: 10px;
+            background: url({{ book.img }}) no-repeat;
+            background-position: center;
+            background-size: contain;
+        }
+
+        .p11 {
+            width: 178px;
+            height: 36px;
+            padding: 5px 20px 0 20px;
+            text-align: center;
+            line-height: 18px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .p22 {
+            width: 218px;
+            height: 40px;
+            line-height: 40px;
+            font-size: 14px;
+            text-align: center;
+            color: #666;
+        }
+
+        .prc1 {
+            color: #e4393c;
+        }
+
+        .prc2 {
+            font-size: 12px;
+            text-decoration: line-through;
+        }
+
+        .cter2-c {
+            width: 840px;
+            min-height: 800px;
+            float: left;
+            margin: 0 10px;
+        }
+
+        .cter2-c-1 {
+            width: 838px;
+            height: 230px;
+            border: 1px solid #e8e8e8;
+        }
+
+        .list_1 {
+            width: 758px;
+            height: 120px;
+            padding: 30px 40px;
+            float: left;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .list_1 li {
+            width: 252px;
+            height: 30px;
+            line-height: 30px;
+            float: left;
+        }
+
+        .p1 {
+            width: 120px;
+            height: 48px;
+            border-top: 2px solid #2db4ea;
+            color: #2db4ea;
+            text-align: center;
+            line-height: 48px;
+        }
+
+        .p2 {
+            width: 694px;
+            height: 48px;
+            background: #f5f5f5;
+            padding-left: 24px;
+            padding-top: 2px;
+            line-height: 48px;
+        }
+
+        .p2 span {
+            color: #2db4ea;
+        }
+
+        .cter2-c-2 {
+            width: 838px;
+            min-height: 500px;
+            border: 1px solid #e8e8e8;
+            margin-top: 20px;
+        }
+
+        .list_2 {
+            width: 818px;
+            margin: 0 10px;
+        }
+
+        .p3 {
+            width: 816px;
+            height: 25px;
+            border-left: 2px solid #2db4ea;
+            border-bottom: 2px solid #f3f3f3;
+            margin-top: 30px;
+            margin-bottom: 10px;
+        }
+
+        .p4 {
+            width: 818px;
+            min-height: 100px;
+            line-height: 30px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .cter2-r {
+            width: 120px;
+            height: 2280px;
+            background: #f5f5f5;
+            float: left;
+        }
+
+        .list_3 {
+            width: 90px;
+            height: 176px;
+            margin-top: 70px;
+            margin-left: 15px;
+        }
+
+        .list_3 li {
+            line-height: 35px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .list_3 li i {
+            font-size: 20px;
+            font-weight: 900;
+        }
+
+        .list_3 li:hover {
+            color: #2db4ea;
+        }
+
+        .active {
+            color: #2db4ea;
+        }
+    </style>
+    <script src="{% static '/js/jquery-1.12.3.js' %}"></script>
+    <script src="{% static '/js/jquery.cookie.js' %}"></script>
+    <script src="{% static '/js/ajax.js' %}"></script>
+    <script>
+        $(function () {
+            $("#header").load("../html_1/header.html");
+            $("#footer").load("../html_1/footer.html");
+            $(".mycart").click(function () {
+                location.href = "cart.html";
+            })
+
+            $(".mximg").mousemove(function (e) {
+                $("#magnifier").show(); //显示小区域
+                $(".absolu").show(); //显示大区域
+                var x = e.pageX - $(".mximg").offset().left - $("#magnifier").width() / 2;
+                var y = e.pageY - $(".mximg").offset().top - $("#magnifier").height() / 2;
+                //控制不超出左右边界
+                if (x < 0) {
+                    x = 0;
+                } else if (x > $(".mximg").width() - $("#magnifier").width()) {
+                    x = $(".mximg").width() - $("#magnifier").width();
+                }
+                //控制不超出上下边界
+                if (y < 0) {
+                    y = 0
+                } else if (y > $(".mximg").height() - $("#magnifier").height()) {
+                    y = $(".mximg").height() - $("#magnifier").height();
+                }
+
+                //小区域移动
+                $("#magnifier").css({left: x, top: y});
+
+                //大图移动
+                $("#aImg").css({left: -2 * x, top: -2 * y});
+            })
+
+            //移除小图
+            $(".mximg").mouseleave(function () {
+                $("#magnifier").hide(); //隐藏小区域
+                $(".absolu").hide(); //隐藏大区域
+            })
+            // 滚动效果
+            var isMoving = false;
+            $(".list_3 li").click(function () {
+                var index = $(this).index();
+                var top = $(".p3").eq(index).offset().top;
+                isMoving = true;
+                $("html,body").stop(true).animate({scrollTop: top}, function () {
+                    isMoving = false;
+                });
+            })
+            //滚动页面
+            $(window).scroll(function () {
+                //如果没有点击楼层按钮执行动画， 则执行代码
+                if (!isMoving) {
+                    var scrollTop = $(window).scrollTop();
+                    var ultop = $(".cter2-r").offset().top
+                    if (scrollTop >= ultop) {
+                        $(".list_3").css({position: "fixed", top: "-70px"})
+                    } else {
+                        $(".list_3").css({position: "static",})
+                    }
+                    //遍历所有
+                    var index = 0;
+                    $(".list_2 li").each(function () {
+                        //每个li的top值
+                        var top = $(this).offset().top;
+                        var winH = $(window).height(); //页面高度
+
+                        if (scrollTop + winH / 2 >= top) {
+                            index = $(this).index();
+                        }
+                    })
+
+                    $(".list_3 li").eq(index).addClass("active")
+                        .siblings().removeClass("active")
+                }
+
+            })
+
+
+
+            var sum = 1
+            $('.jia').click(function () {
+
+                sum++
+                $('#booknumber').val(sum)
+            })
+
+            $('.jian').click(function () {
+                sum--
+                if (sum < 1) {
+                    sum = 1
+                }
+                $('#booknumber').val(sum)
+            })
+
+            $('#addcart').click(function () {
+                var bookid = $(this).attr('bookid')
+                var number = $("#booknumber").val()
+                $.get('/boku/addcart/', {
+                    'bookid': bookid,
+                    'number': number
+                }, function (response) {
+
+
+                    if (response.status == -1) {
+                        window.open('/boku/login', '_self')
+                    }else if (response.status == 1){
+                        $('#booknumber').val(1)
+                        alert('添加購物車成功')
+                    }
+
+
+                })
+
+            })
+
+
+        })
+
+    </script>
+</head>
+<body>
+<div id="header"></div>
+<div class="cter-auto">
+    <div class="cter1">
+        <div class="cter1-h">
+            <span>您的当前位置:</span>
+            <a href="javaScript:;">全部分类</a>
+            <span>></span>
+            <a href="javaScript:;">图书</a>
+            <span>></span>
+            <a href="javaScript:;">小说</a>
+        </div>
+        <div class="cter1-f">
+            <div class="cter1-f-l">
+                <div class="mximg bg">
+                    <div id="magnifier"></div>
+                    <div class="absolu "><img id="aImg" src="{{ book.img }}" width="856" height="862"/></div>
+                </div>
+                <div class="mnimg">
+                    <div class="mnimg-1 bg"></div>
+                </div>
+            </div>
+            <div class="cter1-f-c">
+                <h2></h2>
+                <p class="intro c9">东野圭吾2016年新作，与众不同的恋爱推理：你以为的天作之合，也许只是同床异梦</p>
+                <div class="wrt c9">
+                    作者：<span id="author">风</span>
+                    出版社：<span id="press">人民出版社</span>
+                </div>
+                <div class="prc c9">
+                    <p>定&nbsp;&nbsp;&nbsp;价<i class="thoug">¥<span id="prc1">{{ book.oldprice }}</span></i></p>
+                    <p>售&nbsp;&nbsp;&nbsp;价<i class="cred">¥<span id="prc2">{{ book.newprice }}</span></i></p>
+                </div>
+                <p class="yun c9">运费 <span>满59包邮</span></p>
+                <p class="sell c9">销量 <span>27636件</span></p>
+                <div class="num c9">
+                    <span>数量</span>
+                    <span class="jian">-</span><input class="gbf" type="text" value="1" id="booknumber"/><span class="jia" bookid= {{ book.id }}>+</span>
+                    <span>库存：881</span>
+                </div>
+                <div class="behavie" id="addcart" bookid = {{ book.id }}>
+                    <button class="buy dis flt-le" >立即购买</button>
+                    <button class="cart dis flt-le"><i class="iconfont">&#xe607;</i>加入购物车</button>
+
+                    <button class="collect dis flt-le" >
+                        <i class="iconfont">&#xe675;</i>
+                        <br/>收藏
+                    </button>
+                </div>
+                <div class="serve">
+                    服务
+                    <i class="iconfont">&#xe606;</i>
+                    正品保证
+                    <i class="iconfont">&#xe606;</i>
+                    七天无理由退货
+                    <i class="iconfont">&#xe606;</i>
+                    赠送21积分
+                </div>
+            </div>
+            <div class="cter1-f-r">
+                <div class="bksp">
+                    <div class="w-202">
+                        <div class="wh-70 flt-le"><img src="{{ book.img }}"/></div>
+                        <div class="w-100 flt-le">曲江书店</div>
+                    </div>
+                    <p>
+                        <a class="inter dis flt-le" href="javaScript:;">进入首页</a>
+                        <a class="kai dis flt-le" href="javaScript:;">一键开店</a>
+                    </p>
+                </div>
+                <img src=""/>
+            </div>
+        </div>
+    </div>
+    <div class="cter2">
+        <div class="cter2-l">
+            <dl>
+                <dt>新品推荐</dt>
+                <dd>
+                    <a class="bg1" href="javaScript:;"></a>
+                    <p class="p11">秋天.等你</p>
+                    <p class="p22">
+                        <span class="prc1">¥26.66</span>
+                        <span>|</span>
+                        <span class="prc2">¥46.66</span>
+                    </p>
+                </dd>
+                <dd>
+                    <a class="bg1" href="javaScript:;"></a>
+                    <p class="p11">秋天.等你</p>
+                    <p class="p22">
+                        <span class="prc1">¥26.66</span>
+                        <span>|</span>
+                        <span class="prc2">¥46.66</span>
+                    </p>
+                </dd>
+                <dd>
+                    <a class="bg1" href="javaScript:;"></a>
+                    <p class="p11">秋天.等你</p>
+                    <p class="p22">
+                        <span class="prc1">¥26.66</span>
+                        <span>|</span>
+                        <span class="prc2">¥46.66</span>
+                    </p>
+                </dd>
+                <dd>
+                    <a class="bg1" href="javaScript:;"></a>
+                    <p class="p11">秋天.等你</p>
+                    <p class="p22">
+                        <span class="prc1">¥26.66</span>
+                        <span>|</span>
+                        <span class="prc2">¥46.66</span>
+                    </p>
+                </dd>
+            </dl>
+        </div>
+        <div class="cter2-c">
+            <div class="cter2-c-1">
+                <p class="flt-le p1">商品详情</p>
+                <p class="flt-le p2">累计评价（<span>0</span>）</p>
+                <ul class="list_1">
+                    <li>商品标识：3805855</li>
+                    <li>出版社：现代</li>
+                    <li>ISBN：9787514359848</li>
+                    <li>作者：(日)东野圭吾|译者:魏精彩</li>
+                    <li>页数：282</li>
+                    <li>出版日期：2017-06-01</li>
+                    <li>印刷日期：2017-06-01</li>
+                    <li>包装：平装</li>
+                    <li>开本：32开</li>
+                    <li>版次：1</li>
+                    <li>印次：1</li>
+                    <div class="cle"></div>
+                </ul>
+            </div>
+            <div class="cter2-c-2">
+                <ul class="list_2">
+                    <li>
+                        <p class="p3"><img src="{% static '/images/xqing/images/01.jpg' %}"/></p>
+                        <p class="p4">
+                            电影《芳华》是冯小刚与严歌苓两个曾在文工团度过青春岁月的电影人首度携手，
+                            讲述的也是他们那个年代的青春故事。《芳华》的故事发生在充满理想和**的军队文工团。
+                            一群正值芳华的青春少年，经历着成长中的爱情萌发与充斥变数的人生命运。
+                            这是导演冯小刚与编剧严歌苓合作的*部作品，
+                            有着共同的文工团经历的两人在很多问题上都能产生共鸣。严歌苓12岁入伍，
+                            在文工团跳了八年舞，文工团生活被她“反复咀嚼”揉进创作中。冯小刚20岁进入文工团，
+                            在那里度过了七年的时间，他曾说过自己在部队文工团的这段生活，日后很多年都记忆深刻。
+                            “当脑子里一片黑白的时候，唯独这段生活，在我的脑子里是有彩色的。”
+                        </p>
+                    </li>
+                    <li>
+                        <p class="p3"><img src="{% static '/images/xqing/images/02.jpg' %}"/></p>
+                        <p class="p4">
+                            上世纪七十年代，一些有文艺才能的少年男女从 大江南北挑选出来，进入某部队文工团，
+                            担负军队文 艺宣传的特殊使命。 郝淑雯、林丁丁、何小曼、萧穗子在这个团队里 朝夕相处，
+                            她们才艺不同、性情各异，碰撞出不乏黑 色幽默的情境。严格的军纪和单调的训练中，
+                            青春以 独有的姿态绽放芳华。
+                            严歌苓著的《芳华（精）》用四十余年的跨度， 展开她们命运的流转变迁，是为了讲述男兵
+                            刘峰的谦 卑、平凡及背后值得永远探究的意义。 上世纪七十年代，一些有文艺才能的少年男女从
+                            大江南北挑选出来，进入某部队文工团，担负军队文艺宣传的特殊使命。　　郝淑雯、林丁丁、
+                            何小曼、萧穗子在这个团队里朝夕相处，她们才艺不同、性情各异，碰撞出不乏黑色幽默的情境。
+                            严格的军纪和单调的训练中，青春以独有的姿态绽放芳华。
+                            小说用四十余年的跨度，展开她们命运的流转变迁，是为了讲述男兵刘峰的谦卑、平凡及背后值得永远探究的意义。
+                        </p>
+                    </li>
+                    <li>
+                        <p class="p3"><img src="{% static '/images/xqing/images/03.jpg' %}"/></p>
+                        <p class="p4">
+                            严歌苓 小说家，电影编剧。1986年出版第一本长篇小说，同年加入中国作家协会。
+                            1989年赴美留学，获艺术硕士学位。旅美期间获得十多项美国及台湾、
+                            香港地区的文学奖，并获台湾电影金马奖*编剧奖、美国影评家协会奖。
+                            2001年加入美国电影编剧协会。代表作有《扶桑》《第九个寡妇》
+                            《小姨多鹤》《陆犯焉识》《妈阁是座城》及用英文写作的《赴宴者》等。
+                            作品已被翻译成十几种语言出版。
+                        </p>
+                    </li>
+                    <li>
+                        <p class="p3"><img src="{% static '/images/xqing/images/04.jpg' %}"/></p>
+                        <p class="p4">
+                            正文
+                        </p>
+                    </li>
+                    <li>
+                        <p class="p3"><img src="{% static '/images/xqing/images/05.jpg' %}"/></p>
+                        <p class="p4">
+                            那时假如一个男兵给一个女兵弄东西吃，无论是 他买的还是他做的，都会被看成现在所谓的示爱。
+                            一 九七六年春节，大概是年初二，我万万没想到刘峰会 给我做甜品吃。我被堵在了宿舍里，
+                            看着对同志如春 天般温暖的雷又锋，头晕眼花。把我的情书出卖给领 导的那个男兵在我心里肯定粪土不如了，
+                            但不意味着 任何其他男兵都能填补他的空缺。我晕晕地笑着，脸 大红，看他把一个煤油炉从纸板
+                            箱里端出，在我们三 人共用的写字台上支好，坐上一口漆黑烂炭的小铁锅 。锅盖揭开，里面放
+                            着一团油乎乎的东西。他告诉我 那是他预先和好的油面。他还解说他要做的这种甜品 ，
+                            是他老家的年货，不逢年过节舍不得这么些大油大 糖。说着他对我笑。刘峰的笑是羞涩的，
+                            谦恭的，笑 大了，还有一丁点赖，甚至……无耻。那时我会想到 无耻这层意思，十六岁的直觉。
+                            现在回忆，他的谦恭 和羞涩是有来由的，似乎他本能地知道“标兵”不是 个本事，不能安身立命，
+                            不能指它吃饭。这是他的英 明，他的先见。他又笑笑，下巴示意手里操作的甜品 ，土家伙，
+                            不过好吃，保你爱吃！我心里空空的，他 每句侉音十足的普通话都在里面起回音。雷锋也干这 个？
+                            用弄吃的示爱？……在我混乱并阴暗的内心，主 要感觉竟然是受宠若惊。刘峰不单是团干部，
+                            人家现 在是
+                            党委成员了。他从帆布挎包里拿出一个油纸包， 打开，里面是一团黑黢黢的东西。
+                            一股芝麻的甜腻香 气即刻沁入我混乱黑暗的内心。他把面团揪成一个个 小坨儿，
+                            在手心迅速捏扁，填上黑黢黢的芝麻糖，飞 快搓成一个大元宵，又轻轻压扁。我看着他作坊工人
+                            般的熟练，连他复员转业后的出路都替他看好了：开 个甜品铺子。锅里的菜油开始起泡，
+                            升起炊烟，他说 ，把你们全屋的人都叫来吃吧。我放心了，也失望了 ，为自己的自作多情臊了一阵。
+                            我们同屋的三个女兵 家都不在成都，一个是独唱演员林丁丁，家在上海； 另一个就是香艳**的郝淑雯。刘峰又说，
+                            他其实已 经招呼过林丁丁了；中午她在洗衣台上洗被单，他就 邀请了她，没明说，只说晚上有好吃的，
+                            四点钟食堂 开饭少吃点儿。原来丁丁是他请的头一个客人。他又 接着说，小郝馋嘴，早就跟他央求弄吃的了。
+                            哦，看 来个受到邀请的是郝淑雯。郝淑雯跟哪个男兵要吃的 会要不来？她动手抢他们都欢迎。
+                            我看清了局面，三个同屋，蹭吃的是我。我问， 那小郝人呢？他说放心吧，她一会儿准到。
+                            他推开窗 户，窗外是一条没人走的窄巷子，排水沟又宽又深， 偶尔有起夜的女兵偷偷往里头倒便盆。
+                            沟那边是一所 小学的围墙，从来听不见念书声，总是咚咚呛呛地敲 锣打鼓，给新下达的“新指示”报喜。
+                            围墙**老， 砖头都粉化了，夏天苔藓绿丝绒似的，偶尔冒出三两 丛野石竹。刘峰手和嘴都不停，
+                            话已经转到我父亲那 里去了。他从来没见过我父亲这样的人，穿衣打扮举 手投足都跟他认识的人
+                            不一样。有点古怪，
+                            嘿嘿…… 穿那种深灰毛料，上面还带细白道道，头发老长，打 弯儿，脑后一排头发撅在后衣领上，
+                            头油都蹭上去了 。像个旧社会的人。不是劳动改造了七八年？那要是 不改造呢？不*怪？我说怪也
+                            不该改造啊，还不让人 怪了？！ “对嘛，所以给咱叔平反了呀！” 我蒙了一会儿，才明白他的“咱叔”
+                            是我爸。刘 峰的样子是很称心很解气的，终于摆平公道了，他为 我爸称心呢。
+                            下面又是他的原话。
+                            “别往心里去。那些人说你这个那个的，别上心 。你爸是个好人。你爸真是好人。这谁看不出来？
+                            小 穗子，挺起腰杆做人，啊？” 还是那种乏味语调。但说完他看着我，目光深深 的。
+                            假如以后的日子我记不住刘峰的长相，但他的目 光我别想忘掉。
+                            刹那间我几乎认定刘峰就是专门为我备的年货， 让我私下里过个年。他拉上那两个志得意满的女同屋 ，
+                            不过让她们当电灯泡。我的案子事发，只有很少几 个人对我说过同情的话。刘峰的同情，非同一般，
+                            代 表高美德同情我。刘峰跟我是人群的两极，他在上， 我自然在底部，也许比何小曼还低。
+                            没人觉得何小曼 危险，而我，让他们感到作为对手，有一种神秘的危 险。刘峰对我的关怀同情，
+                            基于对我父亲的认同，为 此我都可以爱他了。那是个混账的年龄，你心里身体 里都是爱，爱浑身
+                            满心乱窜，
+                            给谁是不重要的。刘峰 说别哭，给，擦擦。他居然掏出一团糟粕的手绢给我 ，搁在平常我是要恶心的，
+                            但这一刻，不洁都象征着 温暖和亲密。我认定这些土头土脑的甜饼就是专为我 做的。你被孤立了太久
+                            ，被看成异类太久，什么似是 而非的感情感觉都可以拿来，变成你所需要的“那一 种”关爱和同情。
+                            但下一刻我就明白真正的爱或者关 爱是什么了。林丁丁和郝淑雯同时进来，刘峰此刻正 面朝窗外湿漉
+                            漉的冬夜，向她俩转过脸，那双单眼皮 下发出的目光和看我是决然不同的。虽然雷又锋的身 份使他仍然持重，
+                            但那目光是带荤腥的，现在看来就 是带荷尔蒙的。他军鼓般的心跳就在那目光里。
+                            这就明白了。刘峰爱的是她俩中的一个。想也不 用想，当然是郝淑雯。前一年郝淑雯跟刘峰一块出过
+                            一趟差，去刘峰曾经做苦孩子的梆子剧团，学了个梆 子独幕剧回来。郝淑雯是可以唱几声的，
+                            唱得不是好 ，但唱歌的人没有她的舞蹈基础；她跳得也不好，但 舞蹈队里又没有像她这样能开口唱的，
+                            因此这个载歌 载舞的梆子戏，她就是的女一号。刘峰扮的是一个反 派，后要被女一号打翻在地。
+                            那是两人萌发恋爱的好 时机。后来“触摸事件”暴露，我才知道我当时的判 断多么失误。P22－25
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="cter2-r">
+            <ul class="list_3">
+                <li><i class="iconfont">&#xe61b;</i>编辑推荐语</li>
+                <li><i class="iconfont">&#xe61b;</i>内容提要</li>
+                <li><i class="iconfont">&#xe61b;</i>作者简介</li>
+                <li><i class="iconfont">&#xe61b;</i>目录</li>
+                <li><i class="iconfont">&#xe61b;</i>精彩试读</li>
+            </ul>
+        </div>
+        <div class="cle"></div>
+    </div>
+</div>
+<div id="footer"></div>
+</body>
+</html>

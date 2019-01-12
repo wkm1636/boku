@@ -1,0 +1,8 @@
+html,body,ul,li,ol,dl,dt,dd,h1,h2,h3,h4,h5,h6,form,img,p,input{padding:0; margin:0;}
+body{color:#333; font-size:16px; background:#fff;}
+img{border:none;}
+a{text-decoration:none; color:#333;}
+ul,li{list-style:none;}
+em,i{font-style:normal;}
+h1,h2,h3,h4,h5,h6{font-weight:200;}
+

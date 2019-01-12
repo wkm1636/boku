@@ -1,0 +1,109 @@
+.cy {
+	width: 200px;
+	height: 400px;
+	position: absolute;
+	top:192px;
+	left: 50%;
+	margin-left: -600px;
+}
+.opt {
+	background: #434343;
+	opacity: 0.5;
+	filter: alpha(opacity=50);
+}
+.cll {
+	width: 200px;
+	height: 40px;
+	overflow: hidden;
+}
+.img1 {
+	width: 50px;
+	height: 50px;
+	background: url(../images/left/jinglintu.png) no-repeat;
+}
+.cl {
+	color: white;
+	line-height: 40px;
+}
+.cll .font {
+	font-size: 12px;
+	font-weight: bold;
+}
+.txt {
+	width: 118px;
+	height: 40px;
+	font-size: 14px;
+	line-height: 40px;
+}
+.flt {
+	float: left;
+}
+.cll:hover {
+	background: #fff;
+}
+.cll:hover .img1{
+	background-position-x:-50px;
+}
+.cll:hover .cl {
+	color: #000;
+}
+.cll:hover .lie {display: block;}
+.tp1 {
+	background-position:0 -50px;
+}
+.tp2 {
+	background-position:0 -100px;
+}
+.tp3 {
+	background-position:0 -150px;
+}
+.tp4 {
+	background-position:0 -200px;
+}
+.tp5 {
+	background-position:0 -250px;
+}
+.tp6 {
+	background-position:0 -300px;
+}
+.tp7 {
+	background-position:0 -350px;
+}
+.tp8 {
+	background-position:0 -400px;
+}
+.tp9 {
+	background-position:0 -450px;
+}
+/*正退邮*/
+.zp {
+	width: 100%;
+	height: 40px;
+}
+.zp-auto {
+	width: 1200px;
+	height: 40px;
+	background:#fff;
+	margin: 0 auto;
+}
+.zp-auto p i{
+	font-size: 12px;
+	line-height: 40px;
+}
+.zp-auto p .font {
+	height: 40px;
+	font-size: 20px;
+	line-height: 40px;
+	padding-right: 12px;
+}
+.zp1 {
+	width: 150px;
+	margin: 0;
+}
+.zp2 {
+	width: 193px;
+	margin: 0;
+}
+.zp3 {
+	margin: 0;
+}

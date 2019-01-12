@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/download/iconfont.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/share.css"/>
+		<style type="text/css">
+			.nav-le {
+				width: 42px; height: 442px; position: fixed;left: 0; top:50% ; 
+				margin-top: -150px; background: #ccc; border-radius:5px ;
+				/* opacity: 0.4;filter: alpha(opacity=40); */
+			}
+			.nav-le ul {width: 40px; height: 440px; padding: 1px;}
+			.nav-le ul li {width: 38px; height: 39px; background: #5a14a9;margin: 1px;
+						color: #fff; font-size: 14px; line-height: 19.5px; text-align: center; 
+						font-family:"微软雅黑";border-radius:5px ; cursor: pointer;
+			}
+			.nav-le ul li:hover {background: red;}
+			.nav-ri {width: 40px; height: 100%; 
+					position: fixed; right: 0; background: #3c3c3c;top:0;
+			} 
+			.nav-ri ul {width: 40px; height: 400px;position: absolute; 
+						right: 0; top: 50%; margin-top: -200Px;
+			}
+			.nav-ri ul li {width: 40px; min-height: 50px; padding:10px 0;border-top:1px solid #666; 
+						border-bottom: 1px solid #666; text-align: center; cursor: pointer;
+			}
+			.nav-ri ul li i {color: #95999c; font-size: 20px;}
+			.nav-ri ul li span {display: block; color: #95999c; font-size: 14px; text-align: center;}
+			.nav-ri ul li:first-child i,.nav-ri ul li:first-child span {color: #068b9e;}
+			.ri-hv:hover {background: #ccc;}
+			.ri-hv:hover i,.ri-hv:hover span { color: #000;}
+			.bold {font-weight: bold;}
+			.top {width: 40px; height: 60px; position: fixed; right: 0; bottom: 0;
+					color: #fff; text-align: center; background: #999; cursor: pointer;
+			}
+			.size {font-size: 20px;}
+			.top:hover {background: #2db4ea;}
+		</style>
+	</head>
+	<body>
+		<div class="nav-le">
+			<ul id="list_le">
+				<li>限时抢购</li>
+				<li>重磅推荐</li>
+				<li>人气作家</li>
+				<li>博库热推</li>
+				<li>图书频道</li>
+				<li>童书频道</li>
+				<li>分类推荐</li>
+				<li>文创频道</li>
+				<li>美食频道</li>
+				<li>美学频道</li>
+				<li>影音频道</li>
+			</ul>
+		</div>
+		<div class="nav-ri">
+			<ul>
+				<li><i class="iconfont">&#xe603;</i><span>联<br />系<br />客<br />服</span></li>
+				<li class="ri-hv"><i class="iconfont">&#xe607;</i><span>购<br />物<br />车</span></li>
+				<li class="ri-hv"><i class="iconfont bold">&#xe604;</i><span>签<br />到</span></li>
+				<li class="ri-hv"><i class="iconfont">&#xe600;</i><br /><span>APP<br />下<br />载</span></li>
+			</ul>
+			<div class="top"><i class="iconfont size">&#xe608;</i><br />TOP</div>
+		</div>
+	</body>
+</html>

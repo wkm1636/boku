@@ -1,0 +1,806 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>博库网-体验店</title>
+    <link rel="stylesheet" type="text/css" href="{% static '/css/download/iconfont.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static '/css/share.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static '/css/banner.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static '/css/category.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static '/css/content.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static '/css/header.css' %}"/>
+    <script src="{% static '/js/jquery-1.12.3.js' %}"></script>
+    <script src="{% static '/js/banner.js' %}"></script>
+    <script src="{% static '/js/animation.js' %}"></script>
+    <script src="{% static '/js/content.js' %}"></script>
+    <script src="{% static '/js/ajax.js' %}"></script>
+    <script src="{% static '/js/jq.js' %}"></script>
+
+    {#    <script src="{% static 'js/myhome.js' %}"></script>#}
+    <script>
+        onload = function () {
+            banner();
+            xianshi();
+            var wai = document.getElementsByClassName("wai")[0];
+            var totop = document.getElementsByClassName("top")[0];
+            wai.style.display = "none";
+            window.onscroll = function () {
+                var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+                if (scrollTop >= 192) {
+                    wai.style.display = "block";
+                } else {
+                    wai.style.display = "none";
+                }
+                totop.onclick = function () {
+                    //clearInterval(timer);
+                    var timer = setInterval(function () {
+                        //1, current
+                        var current = document.body.scrollTop || document.documentElement.scrollTop;
+                        //2, speed
+                        var speed = -100;
+                        //3, 临界值
+                        if ((current - 100) < 0) {
+                            clearInterval(timer); //停止运动
+                            scrollTop = 0; //直接设置成目标位置
+                            return;
+                        }
+                        //4, 运动
+                        document.body.scrollTop = current + speed;
+                        document.documentElement.scrollTop = current + speed;
+                    }, 30);
+                }
+            }
+            var oEnter = document.getElementById("enter");
+            var oRegister = document.getElementById("register");
+            oEnter.onclick = function () {
+                location.href = "enter.html";
+            }
+            oRegister.onclick = function () {
+                location.href = "register.html";
+            }
+
+        }
+    </script>
+</head>
+<body>
+
+<!--头部-->
+<div id="header">
+   <body>
+		<div class="header">
+			<!--顶部   登录注册   导航-->
+			<div class="header-hr">
+				<div class="header-hr-ctr">
+					<p class="left-ctr">
+                          {% if user %}
+{#                                <p class="flt-le zp3"><i class="iconfont font flt-le"></i><i class="flt-le"><a href="#">{{ user.name }}</a></i></p>#}
+{#                                <p class="flt-le zp3"><i class="iconfont font flt-le"></i><i class="flt-le"><a href="{% url 'boku:logout' %}">退出</a></i></p>#}
+                                <a id="enter" href="{% url 'boku:login' %}" target="_blank">{{ user.name }}</a><span style="font-size: 14px;">|</span>
+                                <a id="register" href="{% url 'boku:logout' %}" target="_blank">退出</a>
+                          {% else %}
+                                <a id="enter" href="{% url 'boku:login' %}" target="_blank">登录</a><span style="font-size: 14px;">|</span>
+                                <a id="register" href="{% url 'boku:register' %}" target="_blank">免费注册</a>
+                          {% endif %}
+
+
+						<span class="iconfont">&#xe600;</span>
+						<a href="javaScript:;">下载博库APP</a>
+					</p>
+					<ul class="right-ctr">
+						<li class="downs">
+							<a href="javaScript:;">我的博库</a><i class="iconfont">&#xe6b5;</i>
+							<dl class="down-fol">
+								<dd><a href="javaScript:;">我的博库</a></dd>
+								<dd><a href="javaScript:;">我的订单</a></dd>
+								<dd><a href="javaScript:;">我的优惠券</a></dd>
+								<dd><a href="javaScript:;">我的收藏</a></dd>
+								<dd><a href="javaScript:;">我的收入</a></dd>
+								<dd><a href="javaScript:;">官方消息</a></dd>
+							</dl>
+						</li>
+						<li><a href="javaScript:;">收藏夹</a></li>
+						<li><a href="javaScript:;">店铺管理</a></li>
+						<li><a href="javaScript:;">联系客服</a></li>
+					</ul>
+
+				</div>
+			</div>
+			<!--logo--搜索--购物车-->
+			<div class="header-fol">
+				<div class="header-fol-ctr">
+					<a href="index.html" target="_blank"><img src="{% static '/images/bneer/logo.png' %}" /></a>
+					<div class="header-fol-ctr-c">
+						<div class="sch">
+							<input type="text" placeholder="2017诺贝尔文学奖  石黑一雄"/>
+							<i class="iconfont">&#xe6ea;</i>
+							<ul class="list1">
+								<li><a href="javaScript:;">法布尔昆虫记</a></li>
+								<li><a href="javaScript:;">沈石溪</a></li>
+								<li><a href="javaScript:;">芳华</a></li>
+								<li><a href="javaScript:;">曹文轩</a></li>
+								<li><a href="javaScript:;">趣味图解四大名著</a></li>
+							</ul>
+						</div>
+					</div>
+					<a href="{% url 'boku:showcart' %}" class="header-fol-ctr-right mycart"><span class="iconfont">&#xe607;</span><span >购物车</span></a>
+					<ul class="header-fol-nav">
+						<li><a href="javaScript:;"><i class="iconfont">&#xe69c;</i>所有商品分类</a></li>
+						<li><a href="javaScript:;">首页</a></li>
+						<li class="ho-nav"><a href="javaScript:;">新品</a></li>
+						<li class="ho-nav"><a href="javaScript:;">限时购</a></li>
+						<li class="ho-nav"><a href="javaScript:;">排行榜</a></li>
+						<li>|</li>
+						<li class="ho-nav"><a href="javaScript:;">图书馆</a></li>
+						<li class="ho-nav"><a href="javaScript:;">文创馆</a></li>
+						<li class="ho-nav"><a href="javaScript:;">生活美学馆</a></li>
+						<li class="ho-nav"><a href="javaScript:;">环球美食馆</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</body>
+</div>
+
+
+<!--轮播图-->
+<div class="banner">
+    <div class="banner-auto">
+        <ul class="banner-list">
+            {% for banner in banners %}
+                <li>
+                    <img src="{{ banner.img }}" alt="">
+                </li>
+            {% endfor %}
+
+
+        </ul>
+        <dl class="ft">
+            <dd><a class="active" href="javaScript:;"></a></dd>
+            <dd><a href="javaScript:;"></a></dd>
+            <dd><a href="javaScript:;"></a></dd>
+            <dd><a href="javaScript:;"></a></dd>
+            <dd><a href="javaScript:;"></a></dd>
+            <dd><a href="javaScript:;"></a></dd>
+            <dd><a href="javaScript:;"></a></dd>
+            <dd><a href="javaScript:;"></a></dd>
+            <dd><a href="javaScript:;"></a></dd>
+        </dl>
+        <div class="le"><i class="iconfont"></i></div>
+        <div class="ri"><i class="iconfont"></i></div>
+
+
+    </div>
+</div>
+
+<div class="zp">
+    <div class="zp-auto">
+        <p class="flt-le zp1"><i class="iconfont font flt-le"></i><i class="flt-le">正品保证</i></p>
+        <p class="flt-le zp2"><i class="iconfont font flt-le"></i><i class="flt-le">七天无理由退货</i></p>
+        <p class="flt-le zp3"><i class="iconfont font flt-le"></i><i class="flt-le">全场满额包邮</i></p>
+    </div>
+</div>
+<!--中部-->
+<div class="center waip">  <!---->
+    <div class="center auto">
+        <!--限时抢购-->
+        <div class="her mve">
+            <img src="{% static '/images/xianshiqianggou/flashsale.png' %}">
+            <a class="flt-le" href="javaScript:;">
+                <span class="flt-le">总有你想不到的低价 </span>
+                <i class="iconfont"></i>
+            </a>
+        </div>
+        <div class="ralt">
+            <ul class="list">
+                <li class="flt-le">
+                    <ul class="list_1">
+                        {% for book in books %}
+                            <li class="flt-le">
+                                <a class="d-w" href="{% url 'boku:detail' book.id %}">
+                                    <img src="{{ book.img }}"></a>
+                                <a class="bk-name" href="#">{{ book.title }}</a>
+                                <div class="prc"><span class="new-prc">¥{{ book.newprice }}</span>|<span class="old-prc">¥{{ book.oldprice }}</span>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            </ul>
+            <div class="up"><i class="iconfont"></i></div>
+            <div class="nxt"><i class="iconfont"></i></div>
+        </div>
+        <!--重磅推荐--新品速递--热销排行-->
+        <div class="re-new-sell">
+            <div class="recommend flt-le lw-hg1">
+                <p class="her-cl  mve">
+                    <i class="iconfont psi1"></i>
+                    重磅推荐&nbsp;&nbsp;&nbsp;
+                    <a href="#">博库精选推荐 <i class="iconfont psi2"></i></a>
+                </p>
+                <ul>
+                    <li class="lw-hg2 pd-mr-4 flt-le"><img src="{% static '/images/com-new-sell/1.jpg' %}"></li>
+                    <li class="lw-hg2 pd-mr-4 flt-le"><img src="{% static '/images/com-new-sell/2.jpg' %}"></li>
+                    <li class="lw-hg3 pd-mr-4 flt-le"><img src="{% static '/images/com-new-sell/3.jpg' %}"></li>
+                    <li class="lw-hg3 pd-mr-4 flt-le"><img src="{% static '/images/com-new-sell/4.jpg' %}"></li>
+                    <li class="lw-hg3 pd-mr-4 flt-le"><img src="{% static '/images/com-new-sell/5.jpg' %}"></li>
+                    <li class="lw-hg3 pd-mr-4 flt-le"><img src="{% static '/images/com-new-sell/6.jpg' %}"></li>
+                </ul>
+            </div>
+            <div class="new-product flt-le lw-hg1 mg">
+                <p class="her-cl">
+                    <i class="iconfont psi1"></i>
+                    新品速递&nbsp;&nbsp;&nbsp;
+                    <a href="#">发现品质生活 <i class="iconfont psi2"></i></a>
+                </p>
+                <ul>
+                    <li class="lw-hg2 pd-mr-4 flt-le"><img src="{% static '/images/com-new-sell/7.jpg' %}"></li>
+                    <li class="lw-hg2 pd-mr-4 flt-le"><img src="{% static '/images/com-new-sell/8.jpg' %}"></li>
+                    <li class="lw-hg3 pd-mr-4 flt-le"><img src="{% static '/images/com-new-sell/9.jpg' %}"></li>
+                    <li class="lw-hg3 pd-mr-4 flt-le"><img src="{% static '/images/com-new-sell/10.jpg' %}"></li>
+                    <li class="lw-hg3 pd-mr-4 flt-le"><img src="{% static '/images/com-new-sell/11.jpg' %}"></li>
+                    <li class="lw-hg3 pd-mr-4 flt-le"><img src="{% static '/images/com-new-sell/12.jpg' %}"></li>
+                </ul>
+            </div>
+            <div class="flt-le lw-hg1">
+                <p class="her-cl">
+                    <i class="iconfont psi1"></i>
+                    热销排行&nbsp;&nbsp;&nbsp;
+                    <a href="#">网罗全民挚爱 <i class="iconfont psi2"></i></a>
+                </p>
+                <dl class="hot-sell po-re">
+                    <dt class="list_3">
+                        <ul class="list_3">
+                            <li class="lw-hg4 mr-le-35 flt-le"><a href="javaScript:;">图书</a>
+                                <div class="lst"></div>
+                            </li>
+                            <li class="lw-hg4 flt-le"><a href="javaScript:;">童书</a>
+                                <div class="lst"></div>
+                            </li>
+                            <li class="lw-hg4 flt-le"><a href="javaScript:;">文学</a>
+                                <div class="lst"></div>
+                            </li>
+                            <li class="lw-hg4 flt-le"><a href="javaScript:;">教辅</a>
+                                <div class="lst"></div>
+                            </li>
+                        </ul>
+                    </dt>
+                    <dd class="list_4 po-ab dpl">
+                        <ul class="list_4">
+                            <li class="lw-hg6">
+                                <div class="bm1 flt-le">
+                                    <img src="{% static 'undefined' %}" width="20" height="20">
+                                </div>
+                                <div class="flt-le addBm bg1"></div>
+                                <a class="flt-le" href="#">
+                                    <div class="bm2 flt-le">追风筝的人</div>
+                                    <div class="bm3 flt-le"><span>销量：</span>563487</div>
+                                </a>
+                            </li>
+                            <li class="lw-hg6">
+                                <div class="bm1 flt-le">
+                                    <img src="{% static 'undefined' %}" width="20" height="20">
+                                </div>
+                                <div class="flt-le addBm bg2"></div>
+                                <a class="flt-le" href="#">
+                                    <div class="bm2 flt-le">摆渡人</div>
+                                    <div class="bm3 flt-le"><span>销量：</span>563487</div>
+                                </a>
+                            </li>
+                            <li class="lw-hg6">
+                                <div class="bm1 flt-le">
+                                    <img src="{% static 'undefined' %}" width="20" height="20">
+                                </div>
+                                <div class="flt-le addBm bg3"></div>
+                                <a class="flt-le" href="#">
+                                    <div class="bm2 flt-le">从你的全世界路过（让所有人心伤）</div>
+                                    <div class="bm3 flt-le"><span>销量：</span>563487</div>
+                                </a>
+                            </li>
+                            <li class="lw-hg6">
+                                <div class="bm1 flt-le">4</div>
+                                <div class="flt-le addBm bg4"></div>
+                                <a class="flt-le" href="#">
+                                    <div class="bm2 flt-le">我们仨</div>
+                                    <div class="bm3 flt-le"><span>销量：</span>563487</div>
+                                </a>
+                            </li>
+                            <li class="lw-hg6">
+                                <div class="bm1 flt-le">5</div>
+                                <div class="flt-le addBm bg5"></div>
+                                <a class="flt-le" href="#">
+                                    <div class="bm2 flt-le">活着/余华作品</div>
+                                    <div class="bm3 flt-le"><span>销量：</span>563487</div>
+                                </a>
+                            </li>
+                        </ul>
+                    </dd>
+                    <dd class="list_4 po-ab dpl">
+                        <ul class="list_4">
+                            <li class="lw-hg6">
+                                <div class="bm1 flt-le">
+                                    <img src="{% static 'undefined' %}" width="20" height="20">
+                                </div>
+                                <div class="flt-le addBm bg6"></div>
+                                <a class="flt-le" href="#">
+                                    <div class="bm2 flt-le">父与子全集(彩色双语版)/常青藤绘本馆</div>
+                                    <div class="bm3 flt-le"><span>销量：</span>563487</div>
+                                </a>
+                            </li>
+                            <li class="lw-hg6">
+                                <div class="bm1 flt-le">
+                                    <img src="{% static 'undefined' %}" width="20" height="20">
+                                </div>
+                                <div class="flt-le addBm bg7"></div>
+                                <a class="flt-le" href="#">
+                                    <div class="bm2 flt-le">猜猜我有多爱你(精)</div>
+                                    <div class="bm3 flt-le"><span>销量：</span>563487</div>
+                                </a>
+                            </li>
+                            <li class="lw-hg6">
+                                <div class="bm1 flt-le">
+                                    <img src="{% static 'undefined' %}" width="20" height="20">
+                                </div>
+                                <div class="flt-le addBm bg8"></div>
+                                <a class="flt-le" href="#">
+                                    <div class="bm2 flt-le">狼王梦/动物小说大王沈石溪品藏书系</div>
+                                    <div class="bm3 flt-le"><span>销量：</span>563487</div>
+                                </a>
+                            </li>
+                            <li class="lw-hg6">
+                                <div class="bm1 flt-le">4</div>
+                                <div class="flt-le addBm bg9"></div>
+                                <a class="flt-le" href="#">
+                                    <div class="bm2 flt-le">长袜子皮皮(美绘版)/林格伦作品选集</div>
+                                    <div class="bm3 flt-le"><span>销量：</span>563487</div>
+                                </a>
+                            </li>
+                            <li class="lw-hg6">
+                                <div class="bm1 flt-le">5</div>
+                                <div class="flt-le addBm bg10"></div>
+                                <a class="flt-le" href="#">
+                                    <div class="bm2 flt-le">没头脑和不高兴(注音版)/中国幽默儿童文学创作任溶溶系列</div>
+                                    <div class="bm3 flt-le"><span>销量：</span>563487</div>
+                                </a>
+                            </li>
+                        </ul>
+                    </dd>
+                    <dd class="list_4 po-ab dpl">
+                        <ul class="list_4">
+                            <li class="lw-hg6">
+                                <div class="bm1 flt-le">
+                                    <img src="{% static 'undefined' %}" width="20" height="20">
+                                </div>
+                                <div class="flt-le addBm bg1"></div>
+                                <a class="flt-le" href="#">
+                                    <div class="bm2 flt-le">追风筝的人</div>
+                                    <div class="bm3 flt-le"><span>销量：</span>563487</div>
+                                </a>
+                            </li>
+                            <li class="lw-hg6">
+                                <div class="bm1 flt-le">
+                                    <img src="{% static 'undefined' %}" width="20" height="20">
+                                </div>
+                                <div class="flt-le addBm bg2"></div>
+                                <a class="flt-le" href="#">
+                                    <div class="bm2 flt-le">摆渡人</div>
+                                    <div class="bm3 flt-le"><span>销量：</span>563487</div>
+                                </a>
+                            </li>
+                            <li class="lw-hg6">
+                                <div class="bm1 flt-le">
+                                    <img src="{% static 'undefined' %}" width="20" height="20">
+                                </div>
+                                <div class="flt-le addBm bg3"></div>
+                                <a class="flt-le" href="#">
+                                    <div class="bm2 flt-le">从你的全世界路过（让所有人心伤）</div>
+                                    <div class="bm3 flt-le"><span>销量：</span>563487</div>
+                                </a>
+                            </li>
+                            <li class="lw-hg6">
+                                <div class="bm1 flt-le">4</div>
+                                <div class="flt-le addBm bg4"></div>
+                                <a class="flt-le" href="#">
+                                    <div class="bm2 flt-le">我们仨</div>
+                                    <div class="bm3 flt-le"><span>销量：</span>563487</div>
+                                </a>
+                            </li>
+                            <li class="lw-hg6">
+                                <div class="bm1 flt-le">5</div>
+                                <div class="flt-le addBm bg5"></div>
+                                <a class="flt-le" href="#">
+                                    <div class="bm2 flt-le">活着/余华作品</div>
+                                    <div class="bm3 flt-le"><span>销量：</span>563487</div>
+                                </a>
+                            </li>
+                        </ul>
+                    </dd>
+                    <dd class="list_4 po-ab dpl">
+                        <ul class="list_4">
+                            <li class="lw-hg6">
+                                <div class="bm1 flt-le">
+                                    <img src="{% static 'undefined' %}" width="20" height="20">
+                                </div>
+                                <div class="flt-le addBm bg11"></div>
+                                <a class="flt-le" href="#">
+                                    <div class="bm2 flt-le">新概念英语
+                                        &lt;新版&gt;(2)
+                                    </div>
+                                    <div class="bm3 flt-le"><span>销量：</span>563487</div>
+                                </a>
+                            </li>
+                            <li class="lw-hg6">
+                                <div class="bm1 flt-le">
+                                    <img src="{% static 'undefined' %}" width="20" height="20">
+                                </div>
+                                <div class="flt-le addBm bg12"></div>
+                                <a class="flt-le" href="#">
+                                    <div class="bm2 flt-le">小学生小古文100课(附光盘上下修订版)/朱老师教小古文系列</div>
+                                    <div class="bm3 flt-le"><span>销量：</span>563487</div>
+                                </a>
+                            </li>
+                            <li class="lw-hg6">
+                                <div class="bm1 flt-le">
+                                    <img src="{% static 'undefined' %}" width="20" height="20">
+                                </div>
+                                <div class="flt-le addBm bg13"></div>
+                                <a class="flt-le" href="#">
+                                    <div class="bm2 flt-le">日有所诵(小学1年级第4版)/亲近母语</div>
+                                    <div class="bm3 flt-le"><span>销量：</span>563487</div>
+                                </a>
+                            </li>
+                            <li class="lw-hg6">
+                                <div class="bm1 flt-le">4</div>
+                                <div class="flt-le addBm bg14"></div>
+                                <a class="flt-le" href="#">
+                                    <div class="bm2 flt-le">新概念英语(新版1)</div>
+                                    <div class="bm3 flt-le"><span>销量：</span>563487</div>
+                                </a>
+                            </li>
+                            <li class="lw-hg6">
+                                <div class="bm1 flt-le">5</div>
+                                <div class="flt-le addBm bg15"></div>
+                                <a class="flt-le" href="#">
+                                    <div class="bm2 flt-le">城南旧事</div>
+                                    <div class="bm3 flt-le"><span>销量：</span>563487</div>
+                                </a>
+                            </li>
+                        </ul>
+                    </dd>
+
+                </dl>
+            </div>
+        </div>
+        <!--人气作家-->
+        <div class="header-all  mve">
+            <p class="flt-le top-30">
+                <img class="flt-le pd-ri-15" src="{% static '/images/images1/plate_1.jpg' %}">
+                <span class="flt-le">人气作家</span>
+            </p>
+            <ul class="list_5 flt-ri">
+                <li class="flt-le name pter onc">严歌苓</li>
+                <li class="flt-le name pter onc">张爱玲</li>
+                <li class="flt-le name pter onc">曹文轩</li>
+            </ul>
+        </div>
+        <div class="lw-hg-1">
+            <div class="po-re lw-hg7">
+                <div class="lw-hg7 po-ab nae">
+                    <div class="wtr-box1 flt-le">
+                        <img class="poner" src="{% static '/images/writer/11_1.jpg' %}" width="140" height="140">
+                        <h2>严歌苓</h2>
+                        <p>
+                            美籍华人，著名旅美作家、好莱坞专业编剧，以中、英双语创作小说，无论是对于东、西方文化魅力的独特阐释，还是对社会底层人物、边缘人物的关怀以及对历史的重新评价，都折射出复杂的人性，哲思和批判意识。</p>
+                    </div>
+                    <div class="wtr-box2 flt-le"></div>
+                    <div class="wtr-box3 flt-le">
+                        <div class="wtr-box3-1">
+                            <div class="img2 flt-le">
+                                <img src="{% static '/images/writer/box3-1-1.jpg' %}" width="100" height="160">
+                            </div>
+                            <div class="price-1 flt-le">
+                                <h1 class="pter">芳华（精）</h1>
+                                <p>¥25.97<span>¥39.00</span></p>
+                                <p>冯小刚导演、黄轩主演同名电影国庆档上映！青春不是年华，是你我的芳华。</p>
+                            </div>
+                        </div>
+                        <ul class="wtr-box3-2">
+                            <li class="lw-hg8 flt-le">
+                                <a class="posi" href="javaScript:;"></a>
+                                <div class="wtr-commodity">
+                                    <p>严歌苓十书(典藏版共10册)(精)</p>
+                                    <p>¥199.70 <span>|&nbsp;¥298.00</span></p>
+                                </div>
+                            </li>
+                            <li class="lw-hg8 flt-le">
+                                <a class="posi" href="javaScript:;"></a>
+                                <div class="wtr-commodity">
+                                    <p>金陵十三钗(精)/严歌苓作品</p>
+                                    <p>¥21.50 <span>|&nbsp;¥36.00</span></p>
+                                </div>
+                            </li>
+                            <li class="lw-hg8 flt-le">
+                                <a class="posi" href="javaScript:;"></a>
+                                <div class="wtr-commodity">
+                                    <p>小姨多鹤</p>
+                                    <p>¥20.90 <span>|&nbsp;¥29.00</span></p>
+                                </div>
+                            </li>
+                            <li class="lw-hg8 flt-le">
+                                <a class="posi" href="javaScript:;"></a>
+                                <div class="wtr-commodity">
+                                    <p>谁家有女初长成(精)</p>
+                                    <p>¥21.50 <span>|&nbsp;¥29.00</span></p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="wtr-box4 flt-le">
+                        <img src="{% static '/images/writer/11_2.jpg' %}">
+                        <img class="mr-ri-5 mr-tp-5" src="{% static '/images/writer/11_3.jpg' %}">
+                        <img class="mr-tp-5" src="{% static '/images/writer/11_4.jpg' %}">
+                    </div>
+                    <div style="position: absolute; left:226px; top: 186px;"><img
+                            src="{% static '/images/writer/qita_03.jpg' %}">
+                    </div>
+                </div>
+                <div class="lw-hg7 po-ab nae">
+                    <div class="wtr-box1 flt-le">
+                        <img class="poner" src="{% static '/images/writer/22_1.jpg' %}" width="140" height="140">
+                        <h2>张爱玲</h2>
+                        <p>张爱玲文笔冷静，小说常用第三人称即“他”来描写，以一种全知的视角来叙述，小说中虽然没有掺杂太多作者个人的情感，但是感情基调悲凉。</p>
+                    </div>
+                    <div class="wtr-box2 flt-le"></div>
+                    <div class="wtr-box3 flt-le">
+                        <div class="wtr-box3-1">
+                            <div class="img2 flt-le">
+                                <img src="{% static '/images/writer/box3-2-1.jpg' %}" width="160" height="160">
+                            </div>
+                            <div class="price-1 flt-le">
+                                <h1 class="pter">倾城之恋</h1>
+                                <p>¥19.08<span>¥29.80</span></p>
+                                <p>“传奇里的倾国倾城的人大抵如此。到处都是传奇，可不见得有这么圆满的收场。胡琴咿咿哑哑拉着，在万盏灯的夜晚，拉过来又拉过去，说不尽的苍凉的故事不问也罢！”</p>
+                            </div>
+                        </div>
+                        <ul class="wtr-box3-2">
+                            <li class="lw-hg8 flt-le">
+                                <a class="posi" href="javaScript:;"></a>
+                                <div class="wtr-commodity">
+                                    <p>红玫瑰与白玫瑰</p>
+                                    <p>¥17.92 <span>|&nbsp;¥28.00</span></p>
+                                </div>
+                            </li>
+                            <li class="lw-hg8 flt-le">
+                                <a class="posi" href="javaScript:;"></a>
+                                <div class="wtr-commodity">
+                                    <p>小团圆</p>
+                                    <p>¥17.93 <span>|&nbsp;¥28.00</span></p>
+                                </div>
+                            </li>
+                            <li class="lw-hg8 flt-le">
+                                <a class="posi" href="javaScript:;"></a>
+                                <div class="wtr-commodity">
+                                    <p>流言</p>
+                                    <p>¥18.88 <span>|&nbsp;¥29.50</span></p>
+                                </div>
+                            </li>
+                            <li class="lw-hg8 flt-le">
+                                <a class="posi" href="javaScript:;"></a>
+                                <div class="wtr-commodity">
+                                    <p>红楼梦靥</p>
+                                    <p>¥18.88 <span>|&nbsp;¥29.50</span></p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="wtr-box4 flt-le">
+                        <img src="{% static '/images/writer/22_2.jpg' %}">
+                        <img class="mr-ri-5 mr-tp-5" src="{% static '/images/writer/22_3.jpg' %}">
+                        <img class="mr-tp-5" src="{% static '/images/writer/22_4.jpg' %}">
+                    </div>
+                    <div style="position: absolute; left:226px; top: 186px;"><img
+                            src="{% static '/images/writer/qita_03.jpg' %}">
+                    </div>
+                </div>
+                <div class="lw-hg7 po-ab nae">
+                    <div class="wtr-box1 flt-le">
+                        <img class="poner" src="{% static '/images/writer/33_1.jpg' %}" width="140" height="140">
+                        <h2>曹文轩</h2>
+                        <p>曹文轩在成长小说的创作中表达着对少年儿童生存状态和心灵世界的关怀，以自觉的承担意识，关注儿童的生存状态，扶助儿童的生命成长，写出了内在的人性、人情、尊严与理想。</p>
+                    </div>
+                    <div class="wtr-box2 flt-le"></div>
+                    <div class="wtr-box3 flt-le">
+                        <div class="wtr-box3-1">
+                            <div class="img2 flt-le">
+                                <img src="{% static '/images/writer/box3-3-1.jpg' %}" width="160" height="160">
+                            </div>
+                            <div class="price-1 flt-le">
+                                <h1 class="pter">曹文轩经典长篇小说礼盒(共7册)</h1>
+                                <p>¥81.00<span>¥150.00</span></p>
+                                <p>囊括了曹文轩所有的经典儿童文学作品，囊括了国家图书奖等国家图书大奖，蕴含着丰富的情感和哲理，语言优美动人，深受各个年龄段读者喜爱。</p>
+                            </div>
+                        </div>
+                        <ul class="wtr-box3-2">
+                            <li class="lw-hg8 flt-le">
+                                <a class="posi" href="javaScript:;"></a>
+                                <div class="wtr-commodity">
+                                    <p>根鸟/曹文轩纯美小说系列</p>
+                                    <p>¥9.40 <span>|&nbsp;¥18.00</span></p>
+                                </div>
+                            </li>
+                            <li class="lw-hg8 flt-le">
+                                <a class="posi" href="javaScript:;"></a>
+                                <div class="wtr-commodity">
+                                    <p>穿堂风</p>
+                                    <p>¥16.90 <span>|&nbsp;¥25.00</span></p>
+                                </div>
+                            </li>
+                            <li class="lw-hg8 flt-le">
+                                <a class="posi" href="javaScript:;"></a>
+                                <div class="wtr-commodity">
+                                    <p>草房子/曹文轩纯美小说系列</p>
+                                    <p>¥9.00 <span>|&nbsp;¥22.00</span></p>
+                                </div>
+                            </li>
+                            <li class="lw-hg8 flt-le">
+                                <a class="posi" href="javaScript:;"></a>
+                                <div class="wtr-commodity">
+                                    <p>青铜葵花/曹文轩纯美小说系列</p>
+                                    <p>¥12.90 <span>|&nbsp;¥22.00</span></p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="wtr-box4 flt-le">
+                        <img src="{% static '/images/writer/33_2.jpg' %}">
+                        <img class="mr-ri-5 mr-tp-5" src="{% static '/images/writer/33_3.jpg' %}">
+                        <img class="mr-tp-5" src="{% static '/images/writer/33_4.jpg' %}">
+                    </div>
+                    <div style="position: absolute; left:226px; top: 186px;"><img
+                            src="{% static '/images/writer/qita_03.jpg' %}">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--博库热推-->
+        <div class="header-all  mve">
+            <p class="flt-le top-30">
+                <img class="flt-le pd-ri-15" src="{% static '/images/images1/plate_2.png' %}">
+                <span class="flt-le">博库热推</span>
+            </p>
+            <ul class="list_5 flt-ri">
+                <li class="flt-le name pter two">预售新书</li>
+                <li class="flt-le name pter two">名家专区</li>
+                <li class="flt-le name pter two">精选套装</li>
+                <li class="flt-le name pter two">编辑精选</li>
+            </ul>
+        </div>
+        <div id="re"></div>
+        <!--图书频道-->
+        <div class="header-all mve">
+            <p class="flt-le top-30">
+                <img class="flt-le pd-ri-15" src="{% static '/images/images1/plate_3.png' %}">
+                <span class="flt-le">图书频道</span>
+            </p>
+            <ul class="list_5 flt-ri">
+                <li class="flt-le name pter ter">主打</li>
+                <li class="flt-le name pter ter">童书</li>
+                <li class="flt-le name pter ter">文艺</li>
+                <li class="flt-le name pter ter">小说</li>
+                <li class="flt-le name pter ter">社科</li>
+                <li class="flt-le name pter ter">经管</li>
+                <li class="flt-le name pter ter">生活</li>
+                <li class="flt-le name pter ter">科教</li>
+            </ul>
+        </div>
+        <div id="tu"></div>
+        <ul class="list_6">
+            <li class="flt-le"><a><img src="{% static '/images/tushu/20170915092958221.jpg' %}"></a></li>
+            <li class="flt-le"><a><img src="{% static '/images/tushu/20170825105234369.jpg' %}"></a></li>
+            <li class="flt-le"><a><img src="{% static '/images/tushu/20170815180753383.jpg' %}"></a></li>
+        </ul>
+        <!--童书频道-->
+        <div class="header-all mve">
+            <p class="flt-le top-30">
+                <img class="flt-le pd-ri-15" src="{% static '/images/images1/plate_4.png' %}">
+                <span class="flt-le">童书频道</span>
+            </p>
+            <ul class="list_5 flt-ri">
+                <li class="flt-le name pter two">0-2岁</li>
+                <li class="flt-le name pter two">3-6岁</li>
+                <li class="flt-le name pter two">7-10岁</li>
+                <li class="flt-le name pter two">绘本精选</li>
+                <li class="flt-le name pter two">新课标必读</li>
+            </ul>
+        </div>
+        <div id="tong"></div>
+        <ul class="list_6">
+            <li class="flt-le"><a><img src="{% static '/images/tongshu/20170808140725495.jpg' %}"></a></li>
+            <li class="flt-le"><a><img src="{% static '/images/tongshu/20170809143355880.jpg' %}"></a></li>
+            <li class="flt-le"><a><img src="{% static '/images/tongshu/20170809144055676.jpg' %}"></a></li>
+        </ul>
+        <!--分类推荐-->
+        <div class="header-all mve">
+            <p class="flt-le top-30">
+                <img class="flt-le pd-ri-15" src="{% static '/images/images1/plate_5.png' %}">
+                <span class="flt-le">分类推荐</span>
+            </p>
+            <ul class="list_5 flt-ri">
+                <li class="flt-le name pter two">学霸书架</li>
+                <li class="flt-le name pter two">生活指南</li>
+                <li class="flt-le name pter two">文学盛宴</li>
+                <li class="flt-le name pter two">漫画优选</li>
+            </ul>
+        </div>
+        <div id="fen"></div>
+        <!--文创频道-->
+        <div class="header-all mve">
+            <p class="flt-le top-30">
+                <img class="flt-le pd-ri-15" src="{% static '/images/images1/plate_3.png' %}">
+                <span class="flt-le">文创频道</span>
+            </p>
+            <ul class="list_5 flt-ri">
+                <li class="flt-le name pter two">办公文具</li>
+                <li class="flt-le name pter two">学生文具</li>
+                <li class="flt-le name pter two">进口文具</li>
+            </ul>
+        </div>
+        <div id="wen"></div>
+        <ul class="list_6">
+            <li class="flt-le"><a><img src="{% static '/images/wenchuan/20170810151833921.jpg' %}"></a></li>
+            <li class="flt-le"><a><img src="{% static '/images/wenchuan/20170810151834929.jpg' %}"></a></li>
+            <li class="flt-le"><a><img src="{% static '/images/wenchuan/20170810151834184.jpg' %}"></a></li>
+        </ul>
+        <!--美食频道-->
+        <div class="header-all mve">
+            <p class="flt-le top-30">
+                <img class="flt-le pd-ri-15" src="{% static '/images/images1/plate_7.png' %}">
+                <span class="flt-le">美食频道</span>
+            </p>
+            <ul class="list_5 flt-ri">
+                <li class="flt-le name pter two">休闲零嘴</li>
+                <li class="flt-le name pter two">饮料酒水</li>
+            </ul>
+        </div>
+        <div id="mei"></div>
+        <!--美学频道-->
+        <div class="header-all mve">
+            <p class="flt-le top-30">
+                <img class="flt-le pd-ri-15" src="{% static '/images/images1/plate_8.png' %}">
+                <span class="flt-le">美学频道</span>
+            </p>
+            <ul class="list_5 flt-ri">
+                <li class="flt-le name pter ter">茶</li>
+                <li class="flt-le name pter ter">香</li>
+            </ul>
+        </div>
+        <div id="mxue"></div>
+        <!--影音频道-->
+        <div class="header-all mve">
+            <p class="flt-le top-30">
+                <img class="flt-le pd-ri-15" src="{% static '/images/images1/plate_9.png' %}">
+                <span class="flt-le">影音频道</span>
+            </p>
+            <ul class="list_5 flt-ri">
+                <li class="flt-le name pter two">CD</li>
+                <li class="flt-le name pter two">DVD</li>
+                <li class="flt-le name pter two">蓝光</li>
+            </ul>
+        </div>
+        <div id="dvd"></div>
+    </div>
+</div>
+<!--吸顶-->
+<div id="top"></div>
+<!--左导航-->
+<div id="le-nav"></div>
+<!--右导航-->
+<div id="ri-nav"></div>
+<!--尾部-->
+<div id="footer"></div>
+
+
+</body>
+</html>
