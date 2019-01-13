@@ -49,3 +49,22 @@ class Cart(models.Model):
 
 
 
+
+
+# 訂單模型
+class Order(models.Model):
+    user = models.ForeignKey(User)
+    createtime = models.DateTimeField(auto_now_add=True)
+    status = models.IntegerField(default=0)
+    identifier = models.CharField(max_length=255)
+
+
+# 訂單商品模型
+#訂單和訂單商品是多對多的關系
+class orderbook(models.Model):
+    order = models.ForeignKey(Order)
+    book = models.ForeignKey(Book)
+    number = models.IntegerField()
+
+
+

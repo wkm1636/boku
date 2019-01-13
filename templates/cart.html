@@ -464,15 +464,18 @@
 
                 console.log(isall)
                 $(this).attr('isall', isall)
+
                 {#ajax請求#}
                 $.get('/boku/changeallcartstatus', {'isall': isall}, function (response) {
                     console.log(response)
                     if (response.status) {
-                        $(".list_1").each(function () {
-                            if (isall){
-                                $(this).prop('checked',true)
+                        $(".cont .list_1").each(function () {
+                            console.log(this)
+
+                            if (isall && "input[name='checkboxall']"){
+                                $("#checkboxall").prop('checked',true)
                             }else {
-                                $(this).prop('checked',false)
+                                $("#checkboxall").prop('checked',false)
                             }
                         })
                     }
@@ -558,10 +561,10 @@
                         <ul class="list_1">
                             {% for cart in carts %}
                                 {% if cart.isselect %}
-                                    <li class="ipt" cartid="{{ cart.id }}"><input type="checkbox"  name='checkboxall' checked="checked"/>
+                                    <li class="ipt" cartid="{{ cart.id }}"><input type="checkbox"  id='checkboxall' checked="checked"/>
                                     </li>
                                 {% else %}
-                                    <li class="ipt" cartid="{{ cart.id }}"><input type="checkbox" name='checkboxall' /></li>
+                                    <li class="ipt" cartid="{{ cart.id }}"><input type="checkbox" id='checkboxall' /></li>
                                 {% endif %}
                                 <li class="bkImg">
                                     <a href="#"><img style="height: 100px ;width: 150px" src="{{ cart.book.img }}"
