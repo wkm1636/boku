@@ -53,18 +53,26 @@ class Cart(models.Model):
 
 # 訂單模型
 class Order(models.Model):
+    id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User)
     createtime = models.DateTimeField(auto_now_add=True)
     status = models.IntegerField(default=0)
     identifier = models.CharField(max_length=255)
 
+    class Meta:
+        db_table = "order"
+
 
 # 訂單商品模型
 #訂單和訂單商品是多對多的關系
-class orderbook(models.Model):
+class Orderbook(models.Model):
+    # id = models.IntegerField(primary_key=True,auto_created=True,null=False)
+    id = models.AutoField(primary_key=True)
     order = models.ForeignKey(Order)
     book = models.ForeignKey(Book)
     number = models.IntegerField()
+    class Meta:
+        db_table = "orderbook"
 
 
 

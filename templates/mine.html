@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div><a href="{% url 'boku:orderlist' 0 %}">未付款</a>訂單數:{{ waitpay }}</div>
+<div><a href="{% url 'boku:orderlist' 1 %}">已付款(未發貨)</a>訂單數:{{ haspay }}</div>
+<div><a href="{% url 'boku:orderlist' 2 %}">已收貨</a>訂單數:{{ hasreceive }}</div>
+<div><a href="{% url 'boku:orderlist' 3 %}">已籤收</a>訂單數:{{ waitevaluate}}</div>
+
+</body>
+</html>

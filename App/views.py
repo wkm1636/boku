@@ -6,7 +6,7 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 
 # Create your views here.
-from App.models import Banner, Book, User, Cart
+from App.models import Banner, Book, User, Cart, Order, Orderbook
 
 
 def index(request):
@@ -127,7 +127,7 @@ def addcart(request):
 
     token = request.session.get('token')
     bookid = request.GET.get('bookid')
-    number = int(request.GET.get('number'))
+    number = int(request.GET.get('number'))  #ajax傳遞數據
 
 
     data = {}
@@ -174,11 +174,8 @@ def showcart(request):
                 price = cart.book.newprice
                 totalprice = float(price) * number
 
-                print(totalprice)
-
                 sum += totalprice
 
-            print(sum)
             data['carts'] = carts
             data['totalprice'] = int(sum)
             data['totalprice1'] = int(sum) + 5
@@ -217,16 +214,113 @@ def changeallcartstatus(request):
         isall = False
 
 
-    print(isall)
+
 
     for cart in carts:
         cart.isselect = isall
         cart.save()
-        print(cart.isselect)
+
 
         data={
             "msg":'修改成功',
             "status":1,
-            "isselect":cart.isselect
+            "isselect":cart.isselect,
         }
     return JsonResponse(data)
+
+
+
+
+
+def generate_identifier():
+    temp = str(int(time.time())) + str(random.randrange(1000,10000))
+    return temp
+
+
+def genetateorder(request):
+    token = request.session.get("token")
+    user = User.objects.get(token=token)
+
+    carts = Cart.objects.filter(user=user).filter(isselect=True)
+    if carts.exists():
+        # 生成訂單
+        order = Order()
+        order.user = user
+        order.identifier = generate_identifier()
+        order.save()
+
+        # 訂單商品
+        # 獲取用戶的購物車
+        for cart in carts:
+            orderbook = Orderbook()
+            orderbook.order = order
+            orderbook.book = cart.book
+            orderbook.number = cart.number
+            orderbook.save()
+
+            # 從購物車中刪除,數據存入了orderbook
+            cart.delete()
+
+        data={
+            "msg":"下單成功",
+            "status":1,
+            "identifier":order.identifier
+        }
+        return JsonResponse(data)
+    else:
+        data = {
+            "msg": "下單失敗,請先選中商品",
+            "status": -1,
+        }
+        return JsonResponse(data)
+
+
+def orderdetail(request,identifier):
+    # identifier = request.GET.get('identifier')
+
+    print(identifier)
+    order = Order.objects.get(identifier=identifier)
+
+
+    data = {
+        "order":order
+    }
+    return render(request,'orderdetail.html',context=data)
+
+
+def orderlist(request,stu):
+
+    token = request.session.get("token")
+    user = User.objects.get(token=token)
+    orders = Order.objects.filter(user=user).filter(status=stu)
+
+
+
+
+    return render(request,'orderlist.html',context={'orders':orders})
+
+
+def mine(request):
+    token = request.session.get("token")
+
+    if token:
+        user = User.objects.get(token=token)
+        orders = Order.objects.filter(user=user)
+        waitpay = orders.filter(status=0).count()
+        haspay = orders.filter(status=1).count()
+        hasreceive = orders.filter(status=2).count()
+        waitevaluate = orders.filter(status=3).count()
+
+
+        data = {
+            "user":user,
+            "orders":orders,
+            "waitpay":waitpay,
+            "haspay":haspay,
+            "hasreceive":hasreceive,
+            "waitevaluate":waitevaluate,
+
+        }
+
+
+    return render(request,'mine.html',context=data)

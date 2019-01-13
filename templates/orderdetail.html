@@ -1,0 +1,597 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>博库-訂單</title>
+    <link rel="stylesheet" type="text/css" href="{% static '/css/share.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static '/css/download/iconfont.css' %}"/>
+    <style type="text/css">
+        .header-hr {
+            width: 100%;
+            height: 30px;
+            background: #f5f5f5;
+        }
+
+        .header-hr-ctr {
+            width: 1200px;
+            height: 30px;
+            background: #f5f5f5;
+            margin: 0 auto;
+        }
+
+        .left-ctr {
+            float: left;
+            height: 30px;
+            line-height: 30px;
+            color: #d3ccd3;
+        }
+
+        .left-ctr a {
+            color: #666;
+            font-size: 12px;
+        }
+
+        .left-ctr a:nth-child(1) {
+            padding-right: 6px;
+        }
+
+        .left-ctr a:nth-child(3) {
+            padding-left: 6px;
+            padding-right: 34px;
+        }
+
+        .left-ctr span {
+            font-size: 16px;
+            color: #2db4ea;
+        }
+
+        .right-ctr {
+            width: 320px;
+            height: 30px;
+            float: right;
+        }
+
+        .right-ctr li {
+            padding: 0 15px;
+            line-height: 14px;
+            margin-top: 8px;
+            float: left;
+            font-size: 12px;
+            color: #666;
+            border-left: 2px solid #d3ccd3;
+        }
+
+        .right-ctr li:first-child {
+            margin-left: 9px;
+            margin-top: 0;
+            padding-top: 8px;
+            border: none;
+            height: 30px;
+            width: 68px;
+        }
+
+        .right-ctr li:last-child {
+
+            padding-right: 0;
+        }
+
+        .right-ctr li i {
+            padding-left: 4px;
+            font-size: 12px;
+        }
+
+        .right-ctr li a:hover, .down-fol dd a:hover {
+            color: #2dc2ee;
+        }
+
+        .downs {
+            position: relative;
+        }
+
+        .downs:hover > .down-fol {
+            display: block;
+        }
+
+        .down-fol {
+            width: 72px;
+            height: 150px;
+            background: #fff;
+            position: absolute;
+            left: 12px;
+            top: 0;
+            display: none;
+        }
+
+        .down-fol dd a {
+            display: block;
+            font-size: 12px;
+            padding-left: 5px;
+            line-height: 25px;
+
+        }
+
+        .flt-le {
+            float: left;
+        }
+
+        .cb {
+            clear: both;
+        }
+
+        .cont {
+            width: 100%;
+            height: 100%;
+            padding-bottom: 50px;
+            background: #fff;
+        }
+
+        .cont-auto {
+            width: 1200px;
+            margin: 0 auto;
+        }
+
+        .cont-log {
+            width: 1200px;
+            height: 90px;
+            padding-top: 40px;
+            border-bottom: 1px solid #e8e8e8;
+        }
+
+        .cont-log a {
+            display: block;
+            width: 325px;
+            height: 90px;
+        }
+
+        .cter1 {
+            width: 1200px;
+            min-height: 518px;
+        }
+
+        .cter2 {
+            width: 1200px;
+            min-height: 518px;
+            display: none;
+        }
+
+        .cter2-auto {
+            width: 300px;
+            height: 500px;
+            margin: 0 auto;
+        }
+
+        .p_1 {
+            width: 300px;
+            height: 100px;
+            text-align: center;
+            padding-top: 200px;
+        }
+
+        .p_1 i {
+            font-size: 50px;
+            line-height: 100px;
+        }
+
+        .p_2 {
+            width: 300px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+        }
+
+        .p_3 {
+            width: 146px;
+            height: 46px;
+            line-height: 46px;
+            text-align: center;
+            cursor: pointer;
+            color: #fff;
+            background: #2ab4e8;
+            margin-right: 8px;
+        }
+
+        .p_4 {
+            width: 146px;
+            height: 46px;
+            line-height: 46px;
+            text-align: center;
+            cursor: pointer;
+            color: #2db4ea;
+            background: #d5f0fb;
+        }
+
+
+        .p1 {
+            width: 1200px;
+            height: 50px;
+        }
+
+        .p1 span:first-child {
+            float: left;
+            display: block;
+            height: 50px;
+            line-height: 50px;
+            font-size: 18px;
+        }
+
+        .p1 span:last-child {
+            float: right;
+            display: block;
+            height: 50px;
+            line-height: 50px;
+            font-size: 14px;
+            color: #999;
+        }
+
+        .tab_1 tr {
+            line-height: 50px;
+        }
+
+        .ero1 {
+            width: 20px;
+            height: 20px;
+            position: relative;
+            top: 5px;
+            left: 10px;
+        }
+
+        .lw50 {
+            width: 1200px;
+            height: 50px;
+            line-height: 50px;
+        }
+
+        .tus {
+            width: 1195px;
+            height: 50px;
+            line-height: 50px;
+            padding-left: 5px;
+        }
+
+        .commodity tr {
+            height: 110px;
+            width: 1195px;
+        }
+
+        .list_1 {
+            width: 1200px;
+            height: 100px;
+            padding: 5px 0;
+        }
+
+        .list_1 li {
+            float: left;
+        }
+
+        .ipt {
+            width: 80px;
+            height: 80px;
+            line-height: 80px;
+            text-align: center;
+        }
+
+        .ipt input {
+            width: 20px;
+            height: 20px;
+        }
+
+        .bkImg {
+            width: 450px;
+            height: 100px;
+        }
+
+        .bkImg a {
+            display: block;
+            width: 100px;
+            height: 100px;
+            float: left;
+            background: url({% static "/images/tushu/1/1.jpg" %}) no-repeat;
+            background-size: contain;
+        }
+
+        .bkImg p {
+            float: left;
+            width: 300px;
+            margin-left: 50px;
+            line-height: 30px;
+        }
+
+        .prc {
+            width: 160px;
+            height: 60px;
+        }
+
+        .prc1 {
+            font-size: 14px;
+            color: #999;
+            line-height: 30px;
+            text-decoration: line-through;
+            text-align: center;
+        }
+
+        .prc2 {
+            color: #e4393c;
+            text-align: center;
+        }
+
+        .num {
+            width: 120px;
+            height: 65px;
+        }
+
+        .num1 {
+            width: 118px;
+            height: 30px;
+            border: 1px solid #999;
+            margin-top: 33px;
+        }
+
+        .jian, .jia {
+            display: block;
+            width: 30px;
+            height: 30px;
+            float: left;
+            cursor: pointer;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            line-height: 30px;
+        }
+
+        .num div .val {
+            width: 56px;
+            height: 30px;
+            border-right: 1px solid #999;
+            border-left: 1px solid #999;
+            float: left;
+            text-align: center;
+            line-height: 30px;
+        }
+
+        .zPrc {
+            width: 200px;
+            height: 24px;
+        }
+
+        .mt-35 {
+            margin-top: 35px;
+        }
+
+        .handle {
+            width: 120px;
+            height: 83px;
+        }
+
+        .handle span {
+            color: #2db4ea;
+            cursor: pointer;
+        }
+
+        .jiesuan {
+            width: 1199px;
+            height: 80px;
+            margin-top: 10px;
+            background: #e8e8e8;
+            font-size: 14px;
+        }
+
+        .li1 {
+            width: 41px;
+            height: 80px;
+            line-height: 80px;
+            text-align: center;
+        }
+
+        .li1 input {
+            width: 20px;
+            height: 20px;
+        }
+
+        .li2 {
+            width: 41px;
+            height: 80px;
+            line-height: 80px;
+            text-align: center;
+        }
+
+        .li3 {
+            width: 138px;
+            height: 80px;
+            padding: 0 36px;
+            line-height: 80px;
+            text-align: center;
+            color: #999;
+        }
+
+        .li4 {
+            width: 96px;
+            height: 80px;
+            line-height: 80px;
+            cursor: pointer;
+        }
+
+        .li5 {
+            width: 713px;
+            height: 80px;
+        }
+
+        .li5 p {
+            height: 40px;
+            text-align: right;
+            line-height: 40px;
+            width: 700px;
+            padding-right: 13px;
+        }
+
+        .zPrc1 {
+            font-size: 18px;
+            color: red;
+        }
+
+        .li5 p:last-child {
+            color: #666;
+            line-height: 30px;
+        }
+
+        .li6 {
+            width: 98px;
+            height: 80px;
+            background: red;
+            line-height: 80px;
+            text-align: center;
+            font-size: 20px;
+        }
+    </style>
+    <script src="{% static '/js/jquery-1.12.3.js' %}"></script>
+    <script src="{% static '/js/jquery.cookie.js' %}"></script>
+    <script>
+
+    </script>
+</head>
+<body>
+<!--顶部   登录注册   导航-->
+<div class="header-hr">
+    <div class="header-hr-ctr">
+        <p class="left-ctr">
+            <a href="enter.html" target="_blank">登录</a><span style="font-size: 14px;">|</span>
+            <a href="register.html" target="_blank">免费注册</a>
+            <span class="iconfont">&#xe600;</span>
+            <a href="javaScript:;">下载博库APP</a>
+        </p>
+        <ul class="right-ctr">
+            <li class="downs">
+                <a href="javaScript:;">我的博库</a><i class="iconfont">&#xe6b5;</i>
+                <dl class="down-fol">
+                    <dd><a href="javaScript:;">我的博库</a></dd>
+                    <dd><a href="javaScript:;">我的订单</a></dd>
+                    <dd><a href="javaScript:;">我的优惠券</a></dd>
+                    <dd><a href="javaScript:;">我的收藏</a></dd>
+                    <dd><a href="javaScript:;">我的收入</a></dd>
+                    <dd><a href="javaScript:;">官方消息</a></dd>
+                </dl>
+            </li>
+
+            <li><a href="javaScript:;">收藏夹</a></li>
+            <li><a href="javaScript:;">店铺管理</a></li>
+            <li><a href="javaScript:;">联系客服</a></li>
+        </ul>
+    </div>
+</div>
+<div class="cont">
+    <div class="cont-auto">
+        <div class="cont-log">
+            <a href="index.html" target="_blank"><img src="{% static '/images/bneer/logo.png' %}" width="261"
+                                                      height="45"/></a>
+        </div>
+        <div class="cter1">
+            <p class="p1">
+                <span>我的购物车</span>
+                <span>温馨提示:1.购物车中的商品无法保留库存，请您尽快完成购买。2.商品的价格和库存将以订单提交时为准哦。</span>
+            </p>
+            <table width="100%" height="50" class="tab_1" cellspacing="0">
+                <tr>
+
+                    <td width="40" align="center"></td>
+                    <td width="450">商品信息</td>
+                    <td width="160" align="center">单价</td>
+                    <td width="120" align="center">数量</td>
+                    <td width="200" align="center">小計(元)</td>
+                    <td>操作</td>
+                </tr>
+            </table>
+
+            <div class="lw50">
+
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;自营 &nbsp;运费：5.00
+            </div>
+            <div class="tus">图书仓</div>
+            <span>訂單號:{{ order.identifier }}</span>
+
+            <table width="1200" class="commodity" border="1" cellspacing="0" bordercolor="#e8e8e8">
+                <tr>
+                    <td>
+                        <ul class="list_1">
+                            {% for orderbook in order.orderbook_set.all %}
+                                <li class="bkImg">
+                                    <a href="#"><img style="height: 100px ;width: 150px" src="{{ orderbook.book.img }}"
+                                                     alt=""></a>
+                                    <p>{{ orderbook.book.title }}</p>
+                                </li>
+                                <li class="prc">
+                                    <p class="prc1">{{ orderbook.book.oldprice }}</p>
+                                    <p class="prc2">{{ orderbook.book.newprice }}</p>
+                                </li>
+                                <li class="num">
+                                    <div class="num1">
+                                        <span class="jian">-</span>
+                                        <div class="val">{{ orderbook.number }}</div>
+                                        <span class="jia">+</span>
+                                    </div>
+                                </li>
+                                <li class="zPrc">
+                                    <p class="prc2 mt-35">¥{{ orderbook.book.newprice }}</p>
+                                </li>
+                                <li class="handle">
+                                    <p class="mt-35">移入收藏夹</p>
+                                    <span>删除</span>
+                                </li>
+                                <div class="cb"></div>
+
+                            {% endfor %}
+
+
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+            <ul class="jiesuan">
+                <li class="li1 flt-le">
+                    <input type="checkbox" class="total" isall="false"/>
+                </li>
+                <li class="li2 flt-le">
+                    全选
+                </li>
+                <li class="li3 flt-le">
+                    已选 &nbsp; <span id="val">0</span> &nbsp;件
+                </li>
+                <li class="li4 flt-le delSelect">
+                    删除选中商品
+                </li>
+                <li class="li5 flt-le">
+                    <p>应付金额(不含运费) ¥:<span class="zPrc2">{{ totalprice }}</span></p>
+                    <p>商品合计 ¥:<span class="zPrc1">{{ totalprice1 }}</span>(含运费)</p>
+
+                </li>
+                <li class="li6 flt-le" id="generateorder">
+                    <button class="li6 flt-le">
+                        退出
+                    </button>
+                </li>
+                <li class="li6 flt-le" id="generateorder">
+                    {% if order.status == 0 %}
+                        <button class="li6 flt-le">
+                            付款
+                        </button>
+                    {% endif %}
+
+                </li>
+            </ul>
+        </div>
+        <div class="cter2">
+            <div class="cter2-auto">
+                <p class="p_1"><i class="iconfont">&#xe607;</i></p>
+                <p class="p_2">购物车还是空的</p>
+                <div class="txt_1">
+                    <p class="p_3 flt-le">登录</p>
+                    <p class="p_4 flt-le">继续逛</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="footer"></div>
+</body>
+</html>

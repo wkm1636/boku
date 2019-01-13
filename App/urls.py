@@ -24,6 +24,18 @@ urlpatterns = [
     # 修改所有商品的狀態
     url(r'^changeallcartstatus/$',views.changeallcartstatus,name='changeallcartstatus'),
 
+    # 生成訂單
+    url(r'^genetateorder/$',views.genetateorder,name='genetateorder'),
+
+    # 訂單詳情
+    url(r'^orderdetail/(\d+)/$',views.orderdetail,name='orderdetail'),
+
+    # 訂單列表
+    url(r'^orderlist/(\d+)/$',views.orderlist,name='orderlist'),
+
+    # mine
+    url(r'^mine/$',views.mine,name='mine'),
+
 
 
 

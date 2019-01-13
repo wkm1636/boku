@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div>
+        {% for order in orders %}
+            <p>
+                <a href="{% url 'boku:orderdetail' order.identifier %}">
+            {{ forloop.counter }}:{{ order.identifier }}
+            </a>
+            </p>
+        {% endfor %}
+
+    </div>
+
+</body>
+</html>
