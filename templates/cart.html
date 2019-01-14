@@ -453,6 +453,7 @@
             {#加入購物車按鈕#}
             $('.cont .ipt').click(function () {
                 var cartid = $(this).attr('cartid')
+                console.log( "cartid:" +  cartid)
                 $.get('/boku/changecartstatus/', {'cartid': cartid}, function (response) {
                     console.log(response)
                 })
@@ -576,10 +577,10 @@
                         <ul class="list_1">
                             {% for cart in carts %}
                                 {% if cart.isselect %}
-                                    <li class="ipt" ><input type="checkbox"  class='checkboxall' checked="checked"/>
+                                    <li class="ipt" cartid={{ cart.id }}><input type="checkbox"  class='checkboxall' checked="checked" />
                                     </li>
                                 {% else %}
-                                    <li class="ipt" ><input type="checkbox" class='checkboxall' /></li>
+                                    <li class="ipt" cartid={{ cart.id }}><input type="checkbox" class='checkboxall'  /></li>
                                 {% endif %}
                                 <li class="bkImg">
                                     <a href="#"><img style="height: 100px ;width: 150px" src="{{ cart.book.img }}"
@@ -601,7 +602,7 @@
                                     <p class="prc2 mt-35">¥{{ cart.price }}</p>
                                 </li>
                                 <li class="handle">
-                                    <p class="mt-35">移入收藏夹</p>
+                                    <p class="mt-35"></p>
                                     <span>删除</span>
                                 </li>
                                 <div class="cb"></div>

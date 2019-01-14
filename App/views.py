@@ -188,6 +188,8 @@ def showcart(request):
 # 購物車單個選中狀態改變
 def changecartstatus(request):
     cartid = request.GET.get('cartid')
+    print("___________________________________")
+    print(cartid)
 
 
     cart = Cart.objects.get(pk=cartid)
@@ -212,9 +214,6 @@ def changeallcartstatus(request):
         isall = True
     else:
         isall = False
-
-
-
 
     for cart in carts:
         cart.isselect = isall
