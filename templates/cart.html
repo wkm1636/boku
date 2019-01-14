@@ -469,11 +469,13 @@
                 $.get('/boku/changeallcartstatus', {'isall': isall}, function (response) {
                     console.log(response)
                     if (response.status) {
-                        $(".cont .list_1").each(function () {
+                        $(".cont .list_1 .ipt .checkboxall").each(function () {
+                            console.log(this)
+                            {#console.log(this.innerHTML)#}
                             if (isall){
-                                $("#checkboxall").prop('checked',true)
+                                $(this).prop('checked',true)
                             }else {
-                                $("#checkboxall").prop('checked',false)
+                                $(this).prop('checked',false)
                             }
                         })
                     }
@@ -574,10 +576,10 @@
                         <ul class="list_1">
                             {% for cart in carts %}
                                 {% if cart.isselect %}
-                                    <li class="ipt" cartid="{{ cart.id }}"><input type="checkbox"  id='checkboxall' checked="checked"/>
+                                    <li class="ipt" ><input type="checkbox"  class='checkboxall' checked="checked"/>
                                     </li>
                                 {% else %}
-                                    <li class="ipt" cartid="{{ cart.id }}"><input type="checkbox" id='checkboxall' /></li>
+                                    <li class="ipt" ><input type="checkbox" class='checkboxall' /></li>
                                 {% endif %}
                                 <li class="bkImg">
                                     <a href="#"><img style="height: 100px ;width: 150px" src="{{ cart.book.img }}"
@@ -605,8 +607,6 @@
                                 <div class="cb"></div>
 
                             {% endfor %}
-
-
                         </ul>
                     </td>
                 </tr>

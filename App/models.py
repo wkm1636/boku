@@ -71,6 +71,7 @@ class Orderbook(models.Model):
     order = models.ForeignKey(Order)
     book = models.ForeignKey(Book)
     number = models.IntegerField()
+    price = models.IntegerField(default=1)
     class Meta:
         db_table = "orderbook"
 

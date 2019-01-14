@@ -256,6 +256,7 @@ def genetateorder(request):
             orderbook.order = order
             orderbook.book = cart.book
             orderbook.number = cart.number
+            orderbook.price = cart.price
             orderbook.save()
 
             # 從購物車中刪除,數據存入了orderbook
@@ -293,9 +294,6 @@ def orderlist(request,stu):
     token = request.session.get("token")
     user = User.objects.get(token=token)
     orders = Order.objects.filter(user=user).filter(status=stu)
-
-
-
 
     return render(request,'orderlist.html',context={'orders':orders})
 
