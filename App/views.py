@@ -6,6 +6,7 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 
 # Create your views here.
+from App.Alipay import alipay
 from App.models import Banner, Book, User, Cart, Order, Orderbook
 
 
@@ -321,3 +322,32 @@ def mine(request):
 
 
     return render(request,'mine.html',context=data)
+
+
+def appnotify(request):
+    body_str = request.body.decode('utf-8')
+    print(body_str)
+
+    return JsonResponse({"msg":"success"})
+
+
+def returnview(request):
+
+
+    return redirect('boku:orderdetail',0)
+
+
+def pay(request):
+    identifier = request.GET.get('identifier')
+
+    url = alipay.direct_pay(
+        subject= '喜羊羊與灰太狼[珍藏版]',  #標題
+        out_trade_no= identifier,  #訂單號
+        total_amount=199,   #支付金額
+        return_url= 'http://47.107.224.26/boku/returenview/'
+    )
+
+    # 拼接支付網關
+    alipay_url = 'https://openapi.alipaydev.com/gateway.do?{data}'.format(data=url)
+
+    return JsonResponse({'alipay_url':alipay_url,'status':1})

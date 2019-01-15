@@ -448,7 +448,18 @@
     <script src="{% static '/js/jquery-1.12.3.js' %}"></script>
     <script src="{% static '/js/jquery.cookie.js' %}"></script>
     <script>
-
+       $(function () {
+           $('#pay').click(function () {
+               var identifier = $(this).attr('identifier')
+               console.log(identifier)
+               $.get('/boku/pay/',{'identifier':identifier},function (response) {
+                   console.log(response)
+                   if (response.status) {
+                       window.open(response.alipay_url,target='_self')
+                   }
+               })
+           })
+       })
     </script>
 </head>
 <body>
@@ -563,21 +574,15 @@
                 <li class="li5 flt-le">
                     <p>应付金额(不含运费) ¥:<span class="zPrc2">{{ totalprice }}</span></p>
                     <p>商品合计 ¥:<span class="zPrc1">{{ totalprice1 }}</span>(含运费)</p>
-
-                </li>
-                <li class="li6 flt-le" id="generateorder">
-                    <button class="li6 flt-le">
-                        退出
-                    </button>
                 </li>
                 <li class="li6 flt-le" id="generateorder">
                     {% if order.status == 0 %}
-                        <button class="li6 flt-le">
+                        <button class="li6 flt-le" id="pay" identifier = "{{order.identifier}}">
                             付款
                         </button>
                     {% endif %}
-
                 </li>
+
             </ul>
         </div>
         <div class="cter2">

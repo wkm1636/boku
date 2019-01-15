@@ -36,6 +36,15 @@ urlpatterns = [
     # mine
     url(r'^mine/$',views.mine,name='mine'),
 
+    #支付寶通知
+    url(r'^appnotify/$',views.appnotify,name='appnotify'),
+
+    # 應用通知支付寶
+    url(r'^returnview/$',views.returnview,name='returnview'),
+
+    # 支付
+    url(r'^pay/$',views.pay,name='pay'),
+
 
 
 
