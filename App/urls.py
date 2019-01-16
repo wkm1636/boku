@@ -40,7 +40,7 @@ urlpatterns = [
     url(r'^appnotify/$',views.appnotify,name='appnotify'),
 
     # 應用通知支付寶
-    url(r'^returnview/$',views.returnview,name='returnview'),
+    url(r'^returenview/$',views.returenview,name='returenview'),
 
     # 支付
     url(r'^pay/$',views.pay,name='pay'),

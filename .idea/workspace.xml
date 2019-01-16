@@ -2,15 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4d70da78-b547-40d4-8379-1a0c7a489f58" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/App/Alipay/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/App/Alipay/ying_yong_si_yao.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/App/Alipay/zhi_fu_bao_gong_yao.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uwsgi.ini" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/App/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/App/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/orderdetail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/orderdetail.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -60,8 +55,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/App/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="140">
-              <caret line="340" column="39" selection-start-line="340" selection-start-column="39" selection-end-line="340" selection-end-column="39" />
+            <state relative-caret-position="364">
+              <caret line="349" lean-forward="true" selection-start-line="349" selection-end-line="349" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
@@ -69,11 +64,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/App/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="355">
-              <caret line="45" column="26" selection-start-line="45" selection-start-column="26" selection-end-line="45" selection-end-column="26" />
+            <state relative-caret-position="412">
+              <caret line="48" lean-forward="true" selection-start-line="48" selection-end-line="48" />
               <folding>
                 <element signature="e#0#32#0" expanded="true" />
               </folding>
@@ -84,8 +79,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/App/Alipay/__init__.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="143">
-              <caret line="37" column="32" selection-start-line="37" selection-start-column="30" selection-end-line="37" selection-end-column="70" />
+            <state relative-caret-position="2109">
+              <caret line="123" selection-start-line="123" selection-end-line="123" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -93,11 +88,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/orderdetail.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="387">
-              <caret line="460" column="13" lean-forward="true" selection-start-line="460" selection-start-column="13" selection-end-line="460" selection-end-column="13" />
+            <state relative-caret-position="349">
+              <caret line="458" column="20" lean-forward="true" selection-start-line="458" selection-start-column="20" selection-end-line="458" selection-end-column="20" />
             </state>
           </provider>
         </entry>
@@ -114,7 +109,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>box3-3</find>
       <find>fenlei</find>
       <find>book.img</find>
       <find>注冊</find>
@@ -144,6 +138,7 @@
       <find>cb</find>
       <find>ipt</find>
       <find>alipaydev</find>
+      <find>view</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -173,10 +168,10 @@
         <option value="$PROJECT_DIR$/App/Alipay/支付寶公鑰" />
         <option value="$PROJECT_DIR$/App/Alipay/zhi_fu_bao_gong_yao.txt" />
         <option value="$PROJECT_DIR$/App/Alipay/ying_yong_si_yao.txt" />
-        <option value="$PROJECT_DIR$/App/urls.py" />
         <option value="$PROJECT_DIR$/App/Alipay/__init__.py" />
-        <option value="$PROJECT_DIR$/App/views.py" />
         <option value="$PROJECT_DIR$/templates/orderdetail.html" />
+        <option value="$PROJECT_DIR$/App/urls.py" />
+        <option value="$PROJECT_DIR$/App/views.py" />
       </list>
     </option>
   </component>
@@ -209,18 +204,7 @@
             <path>
               <item name="boku" type="b2602c69:ProjectViewProjectNode" />
               <item name="boku" type="462c0819:PsiDirectoryNode" />
-              <item name="App" type="462c0819:PsiDirectoryNode" />
-              <item name="Alipay" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="boku" type="b2602c69:ProjectViewProjectNode" />
               <item name="boku" type="462c0819:PsiDirectoryNode" />
-              <item name="boku" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="boku" type="b2602c69:ProjectViewProjectNode" />
-              <item name="boku" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -352,24 +336,23 @@
       <workItem from="1547254365760" duration="29009000" />
       <workItem from="1547352150322" duration="32843000" />
       <workItem from="1547425900014" duration="12629000" />
-      <workItem from="1547467897122" duration="20427000" />
+      <workItem from="1547467897122" duration="26582000" />
+      <workItem from="1547618124773" duration="8843000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="148178000" />
+    <option name="totallyTimeSpent" value="163176000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="-4" width="1851" height="893" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.19058172" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.32465374" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="File Transfer" weight="0.32898173" />
       <window_info anchor="bottom" id="Docker" order="0" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="1" />
-      <window_info anchor="bottom" id="Terminal" order="2" visible="true" weight="0.29895562" />
+      <window_info anchor="bottom" id="Terminal" order="2" weight="0.34895834" />
       <window_info anchor="bottom" id="Event Log" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="4" weight="0.32898173" />
       <window_info anchor="bottom" id="Database Console" order="5" weight="0.3294271" />
@@ -382,6 +365,7 @@
       <window_info anchor="bottom" id="Cvs" order="12" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="13" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="14" />
+      <window_info active="true" anchor="bottom" id="File Transfer" order="15" visible="true" weight="0.32898173" />
       <window_info anchor="right" id="SciView" order="0" weight="0.32963988" />
       <window_info anchor="right" id="Database" order="1" weight="0.23858342" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="2" type="SLIDING" weight="0.4" />
@@ -662,9 +646,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/App/Alipay/应用公钥2048.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/App/Alipay/应用公钥2048.txt" />
     <entry file="file://$PROJECT_DIR$/boku/settings.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-525">
@@ -700,26 +682,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/App/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="355">
-          <caret line="45" column="26" selection-start-line="45" selection-start-column="26" selection-end-line="45" selection-end-column="26" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/App/Alipay/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="143">
-          <caret line="37" column="32" selection-start-line="37" selection-start-column="30" selection-end-line="37" selection-end-column="70" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/details.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="241">
@@ -727,20 +689,40 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/App/views.py">
+    <entry file="file://$PROJECT_DIR$/App/Alipay/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="340" column="39" selection-start-line="340" selection-start-column="39" selection-end-line="340" selection-end-column="39" />
+        <state relative-caret-position="2109">
+          <caret line="123" selection-start-line="123" selection-end-line="123" />
           <folding>
-            <element signature="e#0#14#0" expanded="true" />
+            <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/orderdetail.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="387">
-          <caret line="460" column="13" lean-forward="true" selection-start-line="460" selection-start-column="13" selection-end-line="460" selection-end-column="13" />
+        <state relative-caret-position="349">
+          <caret line="458" column="20" lean-forward="true" selection-start-line="458" selection-start-column="20" selection-end-line="458" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/App/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="364">
+          <caret line="349" lean-forward="true" selection-start-line="349" selection-end-line="349" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/App/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="412">
+          <caret line="48" lean-forward="true" selection-start-line="48" selection-end-line="48" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

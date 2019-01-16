@@ -331,13 +331,14 @@ def appnotify(request):
     return JsonResponse({"msg":"success"})
 
 
-def returnview(request):
+def returenview(request):
 
 
-    return redirect('boku:orderdetail',0)
+    return redirect('boku:orderlist',0)
 
 
 def pay(request):
+
     identifier = request.GET.get('identifier')
 
     url = alipay.direct_pay(
@@ -349,5 +350,6 @@ def pay(request):
 
     # 拼接支付網關
     alipay_url = 'https://openapi.alipaydev.com/gateway.do?{data}'.format(data=url)
+
 
     return JsonResponse({'alipay_url':alipay_url,'status':1})
